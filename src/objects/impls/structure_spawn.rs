@@ -1,39 +1,22 @@
-use crate::{Part, constants::ReturnCode, objects::{Creep, OwnedStructure, RoomObject, Store, Structure}, prelude::*};
-use js_sys::{Array, JsString, Object};
+use crate::{
+    constants::{Part, ReturnCode},
+    objects::{Creep, OwnedStructure, GameObject, Store, Structure},
+    prelude::*,
+};
+use js_sys::{Array, Object};
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
+#[wasm_bindgen(raw_module = "/game/prototypes")]
 extern "C" {
+    #[wasm_bindgen(js_name = StructureSpawn)]
+    pub static STRUCTURE_SPAWN_PROTOTYPE: Object;
+
     /// An object representing a [`StructureSpawn`], which creates your creeps.
     ///
     /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn)
-    #[wasm_bindgen(extends = RoomObject, extends = Structure, extends = OwnedStructure)]
+    #[wasm_bindgen(extends = GameObject, extends = Structure, extends = OwnedStructure)]
     #[derive(Clone)]
     pub type StructureSpawn;
-
-    /// A shortcut to `Memory.spawns[spawn.name]`.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.memory)
-    #[wasm_bindgen(method, getter)]
-    pub fn memory(this: &StructureSpawn) -> JsValue;
-
-    /// Sets a new value to `Memory.spawns[spawn.name]`.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.memory)
-    #[wasm_bindgen(method, setter)]
-    pub fn set_memory(this: &StructureSpawn, val: &JsValue);
-
-    /// The spawn's name as an owned reference to a [`JsString`].
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.name)
-    #[wasm_bindgen(method, getter)]
-    pub fn name(this: &StructureSpawn) -> JsString;
-
-    /// Information about the spawning creep, if one is currently being spawned.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.spawning)
-    #[wasm_bindgen(method, getter)]
-    pub fn spawning(this: &StructureSpawn) -> Option<Spawning>;
 
     /// The [`Store`] of the spawn, which contains information about what
     /// resources it is it holding.
@@ -55,92 +38,35 @@ extern "C" {
     fn spawn_creep_internal(
         this: &StructureSpawn,
         body: &Array,
-        name: &str,
-        options: Option<&Object>,
-    ) -> ReturnCode;
-
-    /// Kill a [`Creep`] in melee range, returning 100% of its TTL-adjusted
-    /// resources (5x more than if the creep is killed another way). Can be used
-    /// while spawning.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.recycleCreep)
-    #[wasm_bindgen(method, js_name = recycleCreep)]
-    pub fn recycle_creep(this: &StructureSpawn, creep: &Creep) -> ReturnCode;
-
-    /// Renew a [`Creep`] in melee range, removing all boosts adding to its TTL.
-    /// Cannot be used while spawning.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.renewCreep)
-    #[wasm_bindgen(method, js_name = renewCreep)]
-    pub fn renew_creep(this: &StructureSpawn, creep: &Creep) -> ReturnCode;
+    ) -> SpawnCreepResult;
 }
 
 impl StructureSpawn {
-    pub fn spawn_creep(&self, body: &[Part], name: &str) -> ReturnCode {
-        let body = body.iter().cloned().map(JsValue::from).collect();
+    pub fn spawn_creep(&self, body: &[Part]) -> Result<Creep, ReturnCode> {
+        let body = body.iter().cloned().map(JsValue::from).collect();    
+        let r = Self::spawn_creep_internal(self, &body);
 
-        //TODO: wiarchbe: Support options.        
-        Self::spawn_creep_internal(self, &body, name, None)
+        match r.object() {
+            Some(c) => Ok(c),
+            None => Err(r.error()),
+        }
     }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen]
+    type SpawnCreepResult;
+
+    #[wasm_bindgen(method, getter)]
+    fn object(this: &SpawnCreepResult) -> Option<Creep>;
+
+
+    #[wasm_bindgen(method, getter)]
+    fn error(this: &SpawnCreepResult) -> ReturnCode;
 }
 
 impl HasStore for StructureSpawn {
     fn store(&self) -> Store {
         Self::store(self)
     }
-}
-
-#[wasm_bindgen]
-extern "C" {
-    /// Object with info on what a [`StructureSpawn`] or
-    /// [`StructureInvaderCore`] is currently spawning.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn-Spawning)
-    #[wasm_bindgen(js_namespace = StructureSpawn)]
-    pub type Spawning;
-
-    /// Allowed directions for the creep to exit the spawn; can be changed with
-    /// [`Spawning::set_directions`].
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.Spawning.directions)
-    #[wasm_bindgen(method, getter)]
-    pub fn directions(this: &Spawning) -> Array;
-
-    /// The name of the spawning creep.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.Spawning.name)
-    #[wasm_bindgen(method, getter)]
-    pub fn name(this: &Spawning) -> JsString;
-
-    /// Total time needed to spawn this creep.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.Spawning.needTime)
-    #[wasm_bindgen(method, getter = needTime)]
-    pub fn need_time(this: &Spawning) -> u32;
-
-    /// Total time remaining to spawn this creep.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.Spawning.remainingTime)
-    #[wasm_bindgen(method, getter = remainingTime)]
-    pub fn remaining_time(this: &Spawning) -> u32;
-
-    /// Get a reference to the [`Structure`] spawning the creep, either a
-    /// [`StructureSpawn`] or a [`StructureInvaderCore`].
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.Spawning.spawn)
-    #[wasm_bindgen(method, getter)]
-    pub fn spawn(this: &Spawning) -> Structure;
-
-    /// Cancel spawning this creep, without refunding any energy.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.Spawning.cancel)
-    #[wasm_bindgen(method)]
-    pub fn cancel(this: &Spawning) -> ReturnCode;
-
-    /// Change allowed directions for the creep to leave the spawn once it's
-    /// ready.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.Spawning.setDirections)
-    #[wasm_bindgen(method, js_name = setDirections)]
-    pub fn set_directions(this: &Spawning, directions: &Array) -> ReturnCode;
 }

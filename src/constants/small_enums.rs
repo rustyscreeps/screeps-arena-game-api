@@ -7,7 +7,7 @@ use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::{convert::{Infallible, TryFrom}, fmt, str::FromStr};
 use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};
-use crate::constants::find::Find;
+//use crate::constants::find::Find;
 
 // Bindgen does not correctly handle i8 negative return values. Use custom
 // return values.
@@ -30,8 +30,8 @@ pub enum ReturnCode {
     InvalidArgs = -10,
     Tired = -11,
     NoBodypart = -12,
-    RclNotEnough = -14,
-    GclNotEnough = -15,
+    // RclNotEnough = -14,
+    // GclNotEnough = -15,
 }
 
 impl wasm_bindgen::convert::IntoWasmAbi for ReturnCode {
@@ -101,7 +101,7 @@ impl ::std::ops::Neg for Direction {
     /// Example usage:
     ///
     /// ```
-    /// use screeps::Direction::*;
+    /// use screeps_arena::Direction::*;
     ///
     /// assert_eq!(-Top, Bottom);
     /// assert_eq!(-BottomRight, TopLeft);
@@ -140,88 +140,88 @@ impl fmt::Display for Direction {
     }
 }
 
-/// Type used for when the game returns a direction to an exit.
-///
-/// Restricted more than `Direction` in that it can't be diagonal. Used as the
-/// result of [`Room::find_exit_to`].
-///
-/// Can be converted to [`Find`] for immediate use of [`Room::find`]
-/// and [`Direction`].
-///
-/// [`Room::find`]: crate::objects::Room::find
-/// [`Room::find_exit_to`]: crate::objects::Room::find_exit_to
-#[wasm_bindgen]
-#[derive(
-    Debug,
-    PartialEq,
-    Eq,
-    Clone,
-    Copy,
-    Hash,
-    FromPrimitive,
-    Serialize_repr,
-    Deserialize_repr,
-    IntoEnumIterator,
-)]
-#[repr(u8)]
-pub enum ExitDirection {
-    Top = 1,
-    Right = 3,
-    Bottom = 5,
-    Left = 7,
-}
+// /// Type used for when the game returns a direction to an exit.
+// ///
+// /// Restricted more than `Direction` in that it can't be diagonal. Used as the
+// /// result of [`Room::find_exit_to`].
+// ///
+// /// Can be converted to [`Find`] for immediate use of [`Room::find`]
+// /// and [`Direction`].
+// ///
+// /// [`Room::find`]: crate::objects::Room::find
+// /// [`Room::find_exit_to`]: crate::objects::Room::find_exit_to
+// #[wasm_bindgen]
+// #[derive(
+//     Debug,
+//     PartialEq,
+//     Eq,
+//     Clone,
+//     Copy,
+//     Hash,
+//     FromPrimitive,
+//     Serialize_repr,
+//     Deserialize_repr,
+//     IntoEnumIterator,
+// )]
+// #[repr(u8)]
+// pub enum ExitDirection {
+//     Top = 1,
+//     Right = 3,
+//     Bottom = 5,
+//     Left = 7,
+// }
 
-impl From<ExitDirection> for Find {
-    #[inline]
-    fn from(dir: ExitDirection) -> Self {
-        match dir {
-            ExitDirection::Top => Find::ExitTop,
-            ExitDirection::Right => Find::ExitRight,
-            ExitDirection::Bottom => Find::ExitBottom,
-            ExitDirection::Left => Find::ExitLeft,
-        }
-    }
-}
+// impl From<ExitDirection> for Find {
+//     #[inline]
+//     fn from(dir: ExitDirection) -> Self {
+//         match dir {
+//             ExitDirection::Top => Find::ExitTop,
+//             ExitDirection::Right => Find::ExitRight,
+//             ExitDirection::Bottom => Find::ExitBottom,
+//             ExitDirection::Left => Find::ExitLeft,
+//         }
+//     }
+// }
 
-impl From<ExitDirection> for Direction {
-    #[inline]
-    fn from(dir: ExitDirection) -> Self {
-        match dir {
-            ExitDirection::Top => Direction::Top,
-            ExitDirection::Right => Direction::Right,
-            ExitDirection::Bottom => Direction::Bottom,
-            ExitDirection::Left => Direction::Left,
-        }
-    }
-}
+// impl From<ExitDirection> for Direction {
+//     #[inline]
+//     fn from(dir: ExitDirection) -> Self {
+//         match dir {
+//             ExitDirection::Top => Direction::Top,
+//             ExitDirection::Right => Direction::Right,
+//             ExitDirection::Bottom => Direction::Bottom,
+//             ExitDirection::Left => Direction::Left,
+//         }
+//     }
+// }
 
-/// Translates `COLOR_*` constants.
-#[wasm_bindgen]
-#[derive(
-    Debug,
-    PartialEq,
-    Eq,
-    Clone,
-    Copy,
-    FromPrimitive,
-    Hash,
-    Deserialize_repr,
-    Serialize_repr,
-    IntoEnumIterator,
-)]
-#[repr(u8)]
-pub enum Color {
-    Red = 1,
-    Purple = 2,
-    Blue = 3,
-    Cyan = 4,
-    Green = 5,
-    Yellow = 6,
-    Orange = 7,
-    Brown = 8,
-    Grey = 9,
-    White = 10,
-}
+// /// Translates `COLOR_*` constants.
+// #[wasm_bindgen]
+// #[derive(
+//     Debug,
+//     PartialEq,
+//     Eq,
+//     Clone,
+//     Copy,
+//     FromPrimitive,
+//     Hash,
+//     Deserialize_repr,
+//     Serialize_repr,
+//     IntoEnumIterator,
+// )]
+// #[repr(u8)]
+// pub enum Color {
+//     Red = 1,
+//     Purple = 2,
+//     Blue = 3,
+//     Cyan = 4,
+//     Green = 5,
+//     Yellow = 6,
+//     Orange = 7,
+//     Brown = 8,
+//     Grey = 9,
+//     White = 10,
+// }
 
 /// Translates `TERRAIN_*` constants.
 #[wasm_bindgen]
@@ -260,7 +260,7 @@ pub enum Part {
     RangedAttack = "ranged_attack",
     Tough = "tough",
     Heal = "heal",
-    Claim = "claim",
+    //Claim = "claim",
 }
 
 impl Part {
@@ -275,7 +275,7 @@ impl Part {
             Part::RangedAttack => 150,
             Part::Tough => 10,
             Part::Heal => 250,
-            Part::Claim => 600,
+            //Part::Claim => 600,
             // I guess bindgen is adding a `#[non_exhaustive]` onto the enum and forcing us to do
             // this:
             _ => 0,
@@ -307,84 +307,84 @@ impl FromStr for Part {
             "ranged_attack" => Ok(Part::RangedAttack),
             "tough" => Ok(Part::Tough),
             "heal" => Ok(Part::Heal),
-            "claim" => Ok(Part::Claim),
+            //"claim" => Ok(Part::Claim),
             _ => panic!("unknown part type")
         }
     }
 }
 
-/// Translates the `DENSITY_*` constants.
-#[wasm_bindgen]
-#[derive(
-    Debug,
-    PartialEq,
-    Eq,
-    Clone,
-    Copy,
-    FromPrimitive,
-    Hash,
-    Serialize_repr,
-    Deserialize_repr,
-    IntoEnumIterator,
-)]
-#[repr(u8)]
-pub enum Density {
-    Low = 1,
-    Moderate = 2,
-    High = 3,
-    Ultra = 4,
-}
+// /// Translates the `DENSITY_*` constants.
+// #[wasm_bindgen]
+// #[derive(
+//     Debug,
+//     PartialEq,
+//     Eq,
+//     Clone,
+//     Copy,
+//     FromPrimitive,
+//     Hash,
+//     Serialize_repr,
+//     Deserialize_repr,
+//     IntoEnumIterator,
+// )]
+// #[repr(u8)]
+// pub enum Density {
+//     Low = 1,
+//     Moderate = 2,
+//     High = 3,
+//     Ultra = 4,
+// }
 
-impl Density {
-    /// Translates the `MINERAL_DENSITY` constant, the amount of mineral
-    /// generated for each density level
-    #[inline]
-    pub fn amount(self) -> u32 {
-        match self {
-            Density::Low => 15_000,
-            Density::Moderate => 35_000,
-            Density::High => 70_000,
-            Density::Ultra => 100_000,
-        }
-    }
+// impl Density {
+//     /// Translates the `MINERAL_DENSITY` constant, the amount of mineral
+//     /// generated for each density level
+//     #[inline]
+//     pub fn amount(self) -> u32 {
+//         match self {
+//             Density::Low => 15_000,
+//             Density::Moderate => 35_000,
+//             Density::High => 70_000,
+//             Density::Ultra => 100_000,
+//         }
+//     }
 
-    /// Translates the `MINERAL_DENSITY_PROBABILITY` constant.
-    ///
-    /// These are values intended for subsequent percentage checks
-    /// in the order `Low` -> `Medium` -> `High` -> `Ultra`. Use the
-    /// [`Density::iter_values`] iterator to iterate in this order.
-    ///
-    /// If low or ultra on previous regeneration, or random number rolled at
-    /// probability [`MINERAL_DENSITY_CHANGE`], the mineral will determine a
-    /// random new value ([source]):
-    ///
-    ///  - Low: 10% chance
-    ///  - Moderate: 40% chance
-    ///  - High: 40% chance
-    ///  - Ultra: 10% chance
-    ///
-    /// [source]: https://github.com/screeps/engine/blob/c0cfac8f746f26c660501686f16a1fcdb0396d8d/src/processor/intents/minerals/tick.js#L19
-    /// [`MINERAL_DENSITY_CHANGE`]:
-    /// crate::constants::numbers::MINERAL_DENSITY_CHANGE
-    #[inline]
-    pub fn probability(self) -> f32 {
-        match self {
-            Density::Low => 0.1,
-            Density::Moderate => 0.5,
-            Density::High => 0.9,
-            Density::Ultra => 1.0,
-        }
-    }
+//     /// Translates the `MINERAL_DENSITY_PROBABILITY` constant.
+//     ///
+//     /// These are values intended for subsequent percentage checks
+//     /// in the order `Low` -> `Medium` -> `High` -> `Ultra`. Use the
+//     /// [`Density::iter_values`] iterator to iterate in this order.
+//     ///
+//     /// If low or ultra on previous regeneration, or random number rolled at
+//     /// probability [`MINERAL_DENSITY_CHANGE`], the mineral will determine a
+//     /// random new value ([source]):
+//     ///
+//     ///  - Low: 10% chance
+//     ///  - Moderate: 40% chance
+//     ///  - High: 40% chance
+//     ///  - Ultra: 10% chance
+//     ///
+//     /// [source]: https://github.com/screeps/engine/blob/c0cfac8f746f26c660501686f16a1fcdb0396d8d/src/processor/intents/minerals/tick.js#L19
+//     /// [`MINERAL_DENSITY_CHANGE`]:
+//     /// crate::constants::numbers::MINERAL_DENSITY_CHANGE
+//     #[inline]
+//     pub fn probability(self) -> f32 {
+//         match self {
+//             Density::Low => 0.1,
+//             Density::Moderate => 0.5,
+//             Density::High => 0.9,
+//             Density::Ultra => 1.0,
+//         }
+//     }
 
-    pub fn iter_values() -> impl Iterator<Item = Density> {
-        <Density as enum_iterator::IntoEnumIterator>::into_enum_iter()
-    }
-}
+//     pub fn iter_values() -> impl Iterator<Item = Density> {
+//         <Density as enum_iterator::IntoEnumIterator>::into_enum_iter()
+//     }
+// }
 
-/// Translates `ORDER_*` constants.
-#[wasm_bindgen]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize, IntoEnumIterator)]
-pub enum OrderType {
-    Sell = "sell",
-    Buy = "buy",
-}
+// /// Translates `ORDER_*` constants.
+// #[wasm_bindgen]
+// #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize, IntoEnumIterator)]
+// pub enum OrderType {
+//     Sell = "sell",
+//     Buy = "buy",
+// }

@@ -1,16 +1,20 @@
 use crate::{
-    objects::{OwnedStructure, RoomObject, Store, Structure},
+    objects::{OwnedStructure, GameObject, Store, Structure},
     prelude::*,
 };
+use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
+#[wasm_bindgen(raw_module = "/game/prototypes")]
 extern "C" {
+    #[wasm_bindgen(js_name = StructureExtension)]
+    pub static STRUCTURE_EXTENSION_PROTOTYPE: Object;
+
     /// An object representing a [`StructureExtension`], which can store energy
     /// to be used by spawns in the room to spawn creeps.
     ///
     /// [Screeps documentation](https://docs.screeps.com/api/#StructureExtension)
-    #[wasm_bindgen(extends = RoomObject, extends = Structure, extends = OwnedStructure)]
+    #[wasm_bindgen(extends = GameObject, extends = Structure, extends = OwnedStructure)]
     #[derive(Clone)]
     pub type StructureExtension;
 

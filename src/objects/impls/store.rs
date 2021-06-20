@@ -3,37 +3,25 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use js_sys::{Object};
 
-//TODO: wiarchbe: Need types for general purpose store and specific store. (Specific store can return undefined for missing types.)
 #[wasm_bindgen]
 extern "C" {
     /// An object that represents the cargo within an entity in the game world.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#Store)
     #[wasm_bindgen]
     pub type Store;
 
+    /// You can get specific resources from the store by addressing them as object properties
     #[wasm_bindgen(method, structural, indexing_getter)]
     pub fn get(this: &Store, ty: ResourceType) -> Option<u32>;
 
-    /// Get the capacity of the [`Store`] for the specified resource. If the
-    /// [`Store`] can contain any resource, passing `None` as the type will get
-    /// the general store capacity.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#Store.getCapacity)
+    /// Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if resource is undefined.
     #[wasm_bindgen(method, js_name = getCapacity)]
     pub fn get_capacity(this: &Store, ty: Option<ResourceType>) -> u32;
 
-    /// Return the free capacity of the [`Store`] for the specified resource.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#Store.getFreeCapacity)
+    /// Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if resource is defined and valid for this store.
     #[wasm_bindgen(method, js_name = getFreeCapacity)]
     pub fn get_free_capacity(this: &Store, ty: Option<ResourceType>) -> i32;
 
-    /// Return the used capacity of the [`Store`] for the specified resource. If
-    /// the [`Store`] can contain any resource, passing `None` as the type will
-    /// get the total used capacity.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#Store.getUsedCapacity)
+    /// Returns the capacity used by the specified resource. For a general purpose store, it returns total used capacity if resource is undefined.
     #[wasm_bindgen(method, js_name = getUsedCapacity)]
     pub fn get_used_capacity(this: &Store, ty: Option<ResourceType>) -> u32;
 }

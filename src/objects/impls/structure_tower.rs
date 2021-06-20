@@ -1,56 +1,50 @@
 use crate::{
     constants::ReturnCode,
-    objects::{OwnedStructure, RoomObject, Store, Structure},
+    objects::{Creep, OwnedStructure, GameObject, Store, Structure},
     prelude::*,
 };
+use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
+#[wasm_bindgen(raw_module = "/game/prototypes")]
 extern "C" {
-    /// An object representing a [`StructureTower`], which can heal, repair, or
-    /// attack anywhere in the room.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureTower)
-    #[wasm_bindgen(extends = RoomObject, extends = Structure, extends = OwnedStructure)]
+    #[wasm_bindgen(js_name = StructureTower)]
+    pub static STRUCTURE_TOWER_PROTOTYPE: Object;
+
+    #[wasm_bindgen(extends = GameObject, extends = Structure, extends = OwnedStructure)]
     #[derive(Clone)]
     pub type StructureTower;
 
-    /// The [`Store`] of the tower, which contains energy which is consumed when
-    /// it takes actions.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureTower.store)
+    /// A Store object that contains cargo of this structure.
     #[wasm_bindgen(method, getter)]
     pub fn store(this: &StructureTower) -> Store;
 
-    /// Attack a [`Creep`], [`PowerCreep`], or [`Structure`] in the room,
-    /// dealing damage depending on range.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureTower.attack)
+    /// The remaining amount of ticks while this tower cannot be used.
+    #[wasm_bindgen(method, getter)]
+    pub fn cooldown(this: &StructureTower) -> u32;
+
+    /// Remotely attack any creep or structure in range.
     #[wasm_bindgen(method, js_name = attack)]
-    fn attack_internal(this: &StructureTower, target: &RoomObject) -> ReturnCode;
+    fn attack_internal(this: &StructureTower, target: &GameObject) -> ReturnCode;
 
-    /// Heal a [`Creep`] or [`PowerCreep`] in the room, adding hit points
-    /// depending on range.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureTower.heal)
+    /// Remotely heal any creep in range.
     #[wasm_bindgen(method, js_name = heal)]
-    fn heal_internal(this: &StructureTower, target: &RoomObject) -> ReturnCode;
+    pub fn heal(this: &StructureTower, target: &Creep) -> ReturnCode;
 
-    /// Repair a [`Structure`] in the room, adding hit points depending on
-    /// range.
-    ///
-    /// [Screeps documentation](https://docs.screeps.com/api/#StructureTower.repair)
-    #[wasm_bindgen(method, js_name = repair)]
-    pub fn repair(this: &StructureTower, target: &Structure) -> ReturnCode;
+    // todo unsure if this ends up existing?
+    // #[wasm_bindgen(method, js_name = repair)]
+    // pub fn repair(this: &StructureTower, target: &Structure) -> ReturnCode;
+}
+
+impl HasCooldown for StructureTower {
+    fn cooldown(&self) -> u32 {
+        Self::cooldown(self)
+    }
 }
 
 impl StructureTower {
     pub fn attack<T>(&self, target: &T) -> ReturnCode where T: ?Sized + Attackable {
         Self::attack_internal(&self, target.as_ref())
-    }
-
-    pub fn heal<T>(&self, target: &T) -> ReturnCode where T: ?Sized + Healable {
-        Self::heal_internal(&self, target.as_ref())
     }
 }
 
