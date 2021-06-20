@@ -46,12 +46,11 @@ wasm-bindgen-test = "0.3"
 [features]
 default = []
 
-enable-flag = []
 enable-body-part = []
-enable-score-collector = []
+enable-flag = []
 enable-area-effect = []
 enable-score = []
 
-arena-capture-the-flag = ["enable-flag", "enable-body-part"]
+arena-capture-the-flag = ["enable-body-part", "enable-flag"]
 arena-spawn-and-swamp = []
-arena-collect-and-control = ["enable-score-collector", "enable-area-effect", "enable-score"]
+arena-collect-and-control = ["enable-area-effect", "enable-score"]
