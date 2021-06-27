@@ -11,8 +11,8 @@ use crate::{
 #[wasm_bindgen(raw_module = "/game/utils")]
 extern "C" {
     /// Get count of game ticks passed since the start of the game
-    #[wasm_bindgen(js_name = getTime)]
-    pub fn get_time() -> u32;
+    #[wasm_bindgen(js_name = getTicks)]
+    pub fn get_ticks() -> u32;
 
     /// Get an object with the specified unique ID.
     #[wasm_bindgen(js_name = getObjectById)]
