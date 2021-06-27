@@ -1,4 +1,4 @@
-use crate::{constants::ReturnCode, objects::GameObject};
+use crate::{constants::ReturnCode, objects::{GameObject, Structure}};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
@@ -24,6 +24,10 @@ extern "C" {
     /// The total construction progress needed for the structure to be built.
     #[wasm_bindgen(method, getter = progressTotal)]
     pub fn progress_total(this: &ConstructionSite) -> u32;
+
+    /// The structure that was built (when the construction site is completed)
+    #[wasm_bindgen(method, getter)]
+    pub fn structure(this: &ConstructionSite) -> Structure;
 
     /// Remove this [`ConstructionSite`].
     #[wasm_bindgen(method)]

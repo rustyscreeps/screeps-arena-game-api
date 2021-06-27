@@ -21,8 +21,18 @@ pub fn arena_info() -> ArenaInfo {
 }
 
 #[derive(Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 pub struct ArenaInfo {
+    /// The name of the arena.
     pub name: String,
+    /// Currently equals to 1 for basic arena and 2 for advanced.
     pub level: u8,
+    /// Currently equals to "alpha".
     pub season: String,
+    /// Game ticks limit.
+    pub ticks_limit: u32,
+    /// CPU wall time execution limit per one tick (except the first tick)
+    pub cpu_time_limit: u32,
+    /// CPU wall time limit on the first tick.
+    pub cpu_time_limit_first_tick: u32,
 }

@@ -14,6 +14,10 @@ extern "C" {
     #[wasm_bindgen(js_name = getTicks)]
     pub fn get_ticks() -> u32;
 
+    /// Get CPU wall time elapsed in the current tick in nanoseconds.
+    #[wasm_bindgen(js_name = getCpuTime)]
+    pub fn get_cpu_time() -> u32;
+
     /// Get an object with the specified unique ID.
     #[wasm_bindgen(js_name = getObjectById)]
     pub fn get_object_by_id(id: &JsString) -> Option<GameObject>;
