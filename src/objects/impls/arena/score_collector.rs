@@ -5,7 +5,7 @@ use crate::{
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen(raw_module = "/arena")]
+#[wasm_bindgen(module = "arena")]
 extern "C" {
     #[wasm_bindgen(js_name = ScoreCollector)]
     pub static SCORE_COLLECTOR_PROTOTYPE: Object;

@@ -7,7 +7,7 @@ use crate::{
 use js_sys::{Array, Object};
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen(raw_module = "/game/prototypes")]
+#[wasm_bindgen(module = "game/prototypes")]
 extern "C" {
     #[wasm_bindgen(js_name = Creep)]
     pub static CREEP_PROTOTYPE: Object;

@@ -8,7 +8,7 @@ use crate::{
     game::pathfinder::{FindPathOptions, SearchResults},
 };
 
-#[wasm_bindgen(raw_module = "/game/utils")]
+#[wasm_bindgen(module = "game/utils")]
 extern "C" {
     /// Get count of game ticks passed since the start of the game
     #[wasm_bindgen(js_name = getTicks)]

@@ -10,7 +10,7 @@ use wasm_bindgen::prelude::*;
 pub mod utils;
 pub mod pathfinder;
 
-#[wasm_bindgen(raw_module = "/game")]
+#[wasm_bindgen(module = "game")]
 extern "C" {
     #[wasm_bindgen(js_name = arenaInfo)]
     static ARENA_INFO: JsValue;

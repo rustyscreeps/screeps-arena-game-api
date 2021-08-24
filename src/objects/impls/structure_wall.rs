@@ -4,7 +4,7 @@ use crate::{
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen(raw_module = "/game/prototypes")]
+#[wasm_bindgen(module = "game/prototypes")]
 extern "C" {
     #[wasm_bindgen(js_name = StructureWall)]
     pub static STRUCTURE_WALL_PROTOTYPE: Object;

@@ -9,7 +9,7 @@ pub struct Position {
     pub y: u8,
 }
 
-#[wasm_bindgen(raw_module = "/game/path-finder")]
+#[wasm_bindgen(module = "game/path-finder")]
 extern "C" {
     /// Find an optimal path between origin and goal. Note that searchPath without costMatrix specified (see below) use terrain data only.
     #[wasm_bindgen(js_name = searchPath)]
@@ -20,7 +20,7 @@ extern "C" {
     ) -> SearchResults;
 }
 
-#[wasm_bindgen(raw_module = "/game/path-finder")]
+#[wasm_bindgen(module = "game/path-finder")]
 extern "C" {
     #[wasm_bindgen]
     pub type CostMatrix;
