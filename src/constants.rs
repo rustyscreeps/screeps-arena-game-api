@@ -64,6 +64,7 @@
 // pub mod numbers;
 // mod recipes;
 // pub mod seasonal;
+pub mod prototypes;
 mod small_enums;
 mod types;
 // pub mod look;

@@ -3,8 +3,8 @@ use wasm_bindgen::prelude::*;
 use js_sys::{Array, JsString, Object};
 
 use crate::{
-    objects::{GameObject, ConstructionSite},
-    constants::{Direction, Terrain, ReturnCode},
+    objects::*,
+    constants::{prototypes::PrototypeConstant, Direction, Terrain, ReturnCode},
     game::pathfinder::{FindPathOptions, SearchResults},
 };
 
@@ -28,7 +28,7 @@ extern "C" {
 
     /// Get all objects in the game with the specified prototype, for example, all creeps
     #[wasm_bindgen(js_name = getObjectsByPrototype)]
-    pub fn get_objects_by_prototype(prototype: &Object) -> Array;
+    fn get_objects_by_prototype_internal(prototype: &Object) -> Array;
 
     /// Use this method to get heap statistics for your virtual machine
     #[wasm_bindgen(js_name = getHeapStatistics)]
@@ -67,6 +67,18 @@ extern "C" {
     #[wasm_bindgen(js_name = createConstructionSite)]
     fn create_construction_site_internal(x: u8, y: u8, structure_type: &Object) -> CreateConstructionSiteResult;
 }
+
+pub fn get_objects_by_prototype<T>(ty: T) -> Vec<T::Item>
+where
+    T: PrototypeConstant
+{
+    get_objects_by_prototype_internal(ty.prototype())
+        .iter()
+        .map(Into::into)
+        .collect()
+}
+
+
 
 #[wasm_bindgen]
 extern "C" {

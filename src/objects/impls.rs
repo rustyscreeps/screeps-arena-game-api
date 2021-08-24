@@ -17,7 +17,7 @@ mod structure_wall;
 
 pub use self::{
     arena::*,
-    construction_site::ConstructionSite,
+    construction_site::{ConstructionSite, CONSTRUCTION_SITE_PROTOTYPE},
     creep::{Creep, CREEP_PROTOTYPE},
     owned_structure::{OwnedStructure, OWNED_STRUCTURE_PROTOTYPE},
     resource::{Resource, RESOURCE_PROTOTYPE},
