@@ -2,7 +2,7 @@
 
 on: [push, pull_request]
 
-name: MSRV
+name: Test
 
 jobs:
   check:
@@ -76,7 +76,7 @@ jobs:
 
       - name: Run cargo fmt
         uses: actions-rs/cargo@v1
-        continue-on-error: true  # TODO: remove once cleaned up
+        continue-on-error: false
         with:
           command: fmt
           args: --all -- --check
@@ -104,7 +104,7 @@ jobs:
 
       - name: Run cargo clippy
         uses: actions-rs/cargo@v1
-        continue-on-error: true  # TODO: remove once cleaned up
+        continue-on-error: false
         with:
           command: clippy
           args: -- -D warnings
