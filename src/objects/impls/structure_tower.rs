@@ -47,7 +47,7 @@ impl StructureTower {
     where
         T: ?Sized + Attackable,
     {
-        Self::attack_internal(&self, target.as_ref())
+        Self::attack_internal(self, target.as_ref())
     }
 }
 

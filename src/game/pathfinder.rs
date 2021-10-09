@@ -87,6 +87,12 @@ impl SearchPathOptions {
     }
 }
 
+impl Default for SearchPathOptions {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen]
@@ -132,6 +138,12 @@ extern "C" {
 impl FindPathOptions {
     pub fn new() -> FindPathOptions {
         Object::new().unchecked_into()
+    }
+}
+
+impl Default for FindPathOptions {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
