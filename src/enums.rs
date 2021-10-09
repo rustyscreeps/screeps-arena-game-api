@@ -216,20 +216,21 @@ pub enum StructureObject {
 //     }
 // }
 
-// impl From<Structure> for StructureObject {
+// todo should implement using checking of the object's prototype, need to work
+// out how to do that efficiently impl From<Structure> for StructureObject {
 //     fn from(structure: Structure) -> Self {
 //         use crate::constants::StructureType::*;
 
 //         match structure.structure_type() {
-//             Container => Self::StructureContainer(structure.unchecked_into()),
-//             Extension => Self::StructureExtension(structure.unchecked_into()),
-//             Rampart => Self::StructureRampart(structure.unchecked_into()),
-//             Road => Self::StructureRoad(structure.unchecked_into()),
-//             Spawn => Self::StructureSpawn(structure.unchecked_into()),
-//             Tower => Self::StructureTower(structure.unchecked_into()),
-//             Wall => Self::StructureWall(structure.unchecked_into()),
-//             _ => panic!("unknown structure type for conversion into enum"),
-//         }
+//             Container =>
+// Self::StructureContainer(structure.unchecked_into()),             Extension
+// => Self::StructureExtension(structure.unchecked_into()),             Rampart
+// => Self::StructureRampart(structure.unchecked_into()),             Road =>
+// Self::StructureRoad(structure.unchecked_into()),             Spawn =>
+// Self::StructureSpawn(structure.unchecked_into()),             Tower =>
+// Self::StructureTower(structure.unchecked_into()),             Wall =>
+// Self::StructureWall(structure.unchecked_into()),             _ =>
+// panic!("unknown structure type for conversion into enum"),         }
 //     }
 // }
 

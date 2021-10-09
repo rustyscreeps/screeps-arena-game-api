@@ -5,33 +5,6 @@ use enum_iterator::IntoEnumIterator;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 
-// /// Translates `STRUCTURE_*` constants.
-// #[wasm_bindgen]
-// #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize, IntoEnumIterator)]
-// pub enum StructureType {
-//     Spawn = "spawn",
-//     Extension = "extension",
-//     Road = "road",
-//     Wall = "constructedWall",
-//     Rampart = "rampart",
-//     KeeperLair = "keeperLair",
-//     Portal = "portal",
-//     Controller = "controller",
-//     Link = "link",
-//     Storage = "storage",
-//     Tower = "tower",
-//     Observer = "observer",
-//     PowerBank = "powerBank",
-//     PowerSpawn = "powerSpawn",
-//     Extractor = "extractor",
-//     Lab = "lab",
-//     Terminal = "terminal",
-//     Container = "container",
-//     Nuker = "nuker",
-//     Factory = "factory",
-//     InvaderCore = "invaderCore",
-// }
-
 // impl StructureType {
 //     /// Translates the `CONSTRUCTION_COST` constant.
 //     #[inline]
@@ -58,90 +31,6 @@ use wasm_bindgen::prelude::*;
 //             _ => return None,
 //         };
 //         Some(cost)
-//     }
-
-//     /// Translates the `CONTROLLER_STRUCTURES` constant
-//     #[inline]
-//     pub fn controller_structures(self, current_rcl: u32) -> u32 {
-//         use self::StructureType::*;
-
-//         match self {
-//             Spawn => match current_rcl {
-//                 0 => 0,
-//                 1..=6 => 1,
-//                 7 => 2,
-//                 _ => 3,
-//             },
-//             Extension => match current_rcl {
-//                 0 | 1 => 0,
-//                 2 => 5,
-//                 3 => 10,
-//                 4 => 20,
-//                 5 => 30,
-//                 6 => 40,
-//                 7 => 50,
-//                 _ => 60,
-//             },
-//             Road => 2500,
-//             Wall => match current_rcl {
-//                 0 | 1 => 0,
-//                 _ => 2500,
-//             },
-//             Rampart => match current_rcl {
-//                 0 | 1 => 0,
-//                 _ => 2500,
-//             },
-//             Link => match current_rcl {
-//                 0..=4 => 0,
-//                 5 => 2,
-//                 6 => 3,
-//                 7 => 4,
-//                 _ => 6,
-//             },
-//             Storage => match current_rcl {
-//                 0..=3 => 0,
-//                 _ => 1,
-//             },
-//             Tower => match current_rcl {
-//                 0 | 1 | 2 => 0,
-//                 3 | 4 => 1,
-//                 5 | 6 => 2,
-//                 7 => 3,
-//                 _ => 6,
-//             },
-//             Observer => match current_rcl {
-//                 0..=7 => 0,
-//                 _ => 1,
-//             },
-//             PowerSpawn => match current_rcl {
-//                 0..=7 => 0,
-//                 _ => 1,
-//             },
-//             Extractor => match current_rcl {
-//                 0..=5 => 0,
-//                 _ => 1,
-//             },
-//             Lab => match current_rcl {
-//                 0..=5 => 0,
-//                 6 => 3,
-//                 7 => 6,
-//                 _ => 10,
-//             },
-//             Terminal => match current_rcl {
-//                 0..=5 => 0,
-//                 _ => 1,
-//             },
-//             Container => 5,
-//             Nuker => match current_rcl {
-//                 0..=7 => 0,
-//                 _ => 1,
-//             },
-//             Factory => match current_rcl {
-//                 0..=6 => 0,
-//                 _ => 1,
-//             },
-//             _ => 0,
-//         }
 //     }
 
 //     /// Translates the `*_HITS` constants, initial hits for structures
@@ -173,17 +62,6 @@ use wasm_bindgen::prelude::*;
 //         };
 //         Some(hits)
 //     }
-// }
-
-// /// Translates `SUBSCRIPTION_TOKEN` and `INTERSHARD_RESOURCES` constants.
-// #[wasm_bindgen]
-// #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize, IntoEnumIterator)]
-// pub enum IntershardResourceType {
-//     // no longer used, not implemented
-//     // SubscriptionToken = "token",
-//     CpuUnlock = "cpuUnlock",
-//     Pixel = "pixel",
-//     AccessKey = "accessKey",
 // }
 
 /// Resource type constant for all possible types of resources.
