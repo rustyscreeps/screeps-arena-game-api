@@ -1,7 +1,4 @@
-use crate::{
-    constants::ResourceType,
-    objects::GameObject,
-};
+use crate::{constants::ResourceType, objects::GameObject};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
@@ -30,7 +27,6 @@ extern "C" {
     #[wasm_bindgen(method, getter = scoreTotal)]
     pub fn score_total(this: &ScoreCollector) -> u32;
 }
-
 
 // impl JsContainerFromValue for ScoreCollector {
 //     fn from_value(val: JsValue) -> Self {

@@ -1,10 +1,10 @@
 use enum_dispatch::enum_dispatch;
-use js_sys::{Array, Object, JsString};
+use js_sys::{Array, JsString, Object};
 
 use crate::{
     enums::*,
-    objects::*,
     game::pathfinder::{FindPathOptions, SearchResults},
+    objects::*,
 };
 
 #[enum_dispatch]
@@ -51,8 +51,8 @@ pub trait HasCooldown {
 //     fn raw_id(&self) -> RawObjectId {
 //         let id: String = self.native_id().into();
 
-//         RawObjectId::from_str(&id).expect("expected object ID to be parseable")
-//     }
+//         RawObjectId::from_str(&id).expect("expected object ID to be
+// parseable")     }
 // }
 
 // #[enum_dispatch]
@@ -87,8 +87,8 @@ pub trait HasCooldown {
 //         self
 //             .native_id()
 //             .map(String::from)
-//             .map(|id| RawObjectId::from_str(&id).expect("expected object ID to be parseable"))
-//     }
+//             .map(|id| RawObjectId::from_str(&id).expect("expected object ID
+// to be parseable"))     }
 // }
 
 // #[enum_dispatch]
@@ -98,7 +98,6 @@ pub trait HasCooldown {
 //     /// object doesn't currently have an id.
 //     fn try_id(&self) -> Option<ObjectId<T>>;
 // }
-
 
 // impl<T> MaybeHasTypedId<T> for T where T: MaybeHasId {
 //     fn try_id(&self) -> Option<ObjectId<T>> {
@@ -132,16 +131,19 @@ pub trait HasStore {
 
 #[enum_dispatch]
 pub trait OwnedStructureProperties {
-    /// Returns true for your structure, false for a hostile structure, undefined for a neutral structure.
+    /// Returns true for your structure, false for a hostile structure,
+    /// undefined for a neutral structure.
     fn my(&self) -> Option<bool>;
 }
 
 #[enum_dispatch]
 pub trait GameObjectProperties {
-    /// Returns true if this object is live in the game at the moment. Check this property to verify cached or newly created object instances.
+    /// Returns true if this object is live in the game at the moment. Check
+    /// this property to verify cached or newly created object instances.
     fn exists(&self) -> bool;
 
-    /// The unique ID of this object that you can use in /game/utils::getObjectById
+    /// The unique ID of this object that you can use in
+    /// /game/utils::getObjectById
     fn id(&self) -> JsString;
 
     /// The X coordinate in the room.
@@ -153,17 +155,9 @@ pub trait GameObjectProperties {
     /// If defined, then this object will disappear after this number of ticks.
     fn ticks_to_decay(&self) -> Option<u32>;
 
-    fn find_path_to(
-        &self,
-        pos: &Object,
-        options: Option<&FindPathOptions>,
-    ) -> SearchResults;
+    fn find_path_to(&self, pos: &Object, options: Option<&FindPathOptions>) -> SearchResults;
 
-    fn find_in_range(
-        &self,
-        positions: &Array,
-        range: u8,
-    ) -> Array;
+    fn find_in_range(&self, positions: &Array, range: u8) -> Array;
 
     fn find_closest_by_range(&self, positions: &Array) -> Option<Object>;
 

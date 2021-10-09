@@ -1,6 +1,6 @@
 use crate::{
     constants::ReturnCode,
-    objects::{Creep, OwnedStructure, GameObject, Store, Structure},
+    objects::{Creep, GameObject, OwnedStructure, Store, Structure},
     prelude::*,
 };
 use js_sys::Object;
@@ -43,8 +43,11 @@ impl HasCooldown for StructureTower {
 }
 
 impl StructureTower {
-    pub fn attack<T>(&self, target: &T) -> ReturnCode where T: ?Sized + Attackable {
-        Self::attack_internal(&self, target.as_ref())
+    pub fn attack<T>(&self, target: &T) -> ReturnCode
+    where
+        T: ?Sized + Attackable,
+    {
+        Self::attack_internal(self, target.as_ref())
     }
 }
 

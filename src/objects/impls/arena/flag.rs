@@ -1,6 +1,4 @@
-use crate::{
-    objects::GameObject,
-};
+use crate::objects::GameObject;
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
@@ -13,7 +11,8 @@ extern "C" {
     #[derive(Clone)]
     pub type Flag;
 
-    /// Returns `Some(true)` for your flag, `Some(false)` for a hostile flag, `None` for a neutral flag.
+    /// Returns `Some(true)` for your flag, `Some(false)` for a hostile flag,
+    /// `None` for a neutral flag.
     #[wasm_bindgen(method, getter)]
     pub fn my(this: &Flag) -> Option<bool>;
 }

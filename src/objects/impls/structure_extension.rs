@@ -1,5 +1,5 @@
 use crate::{
-    objects::{OwnedStructure, GameObject, Store, Structure},
+    objects::{GameObject, OwnedStructure, Store, Structure},
     prelude::*,
 };
 use js_sys::Object;

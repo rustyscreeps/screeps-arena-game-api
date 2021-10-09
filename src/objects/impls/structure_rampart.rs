@@ -1,6 +1,4 @@
-use crate::{
-    objects::{OwnedStructure, GameObject, Structure},
-};
+use crate::objects::{GameObject, OwnedStructure, Structure};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 

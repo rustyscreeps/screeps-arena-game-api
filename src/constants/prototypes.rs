@@ -1,6 +1,6 @@
+use crate::objects::*;
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
-use crate::{objects::*};
 
 pub trait PrototypeConstant {
     type Item: From<JsValue>;
@@ -16,9 +16,9 @@ macro_rules! typesafe_prototype_constants {
     ) => (
         $(
             #[allow(bad_style)]
-            $vis struct $constant_name;            
+            $vis struct $constant_name;
             impl PrototypeConstant for $constant_name {
-                type Item = $result;               
+                type Item = $result;
 
                 #[inline]
                 fn prototype(&self) -> &Object {

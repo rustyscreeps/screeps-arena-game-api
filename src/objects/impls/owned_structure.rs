@@ -1,6 +1,6 @@
 use crate::{
     objects::{GameObject, Structure},
-    prelude::*
+    prelude::*,
 };
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
@@ -16,12 +16,16 @@ extern "C" {
     #[derive(Clone)]
     pub type OwnedStructure;
 
-    /// Returns `Some(true)` for your structure, `Some(false)` for a hostile structure, `None` for a neutral structure.
+    /// Returns `Some(true)` for your structure, `Some(false)` for a hostile
+    /// structure, `None` for a neutral structure.
     #[wasm_bindgen(method, getter)]
     pub fn my(this: &OwnedStructure) -> Option<bool>;
 }
 
-impl<T> OwnedStructureProperties for T where T: AsRef<OwnedStructure> {
+impl<T> OwnedStructureProperties for T
+where
+    T: AsRef<OwnedStructure>,
+{
     fn my(&self) -> Option<bool> {
         OwnedStructure::my(self.as_ref())
     }

@@ -1,7 +1,4 @@
-use crate::{
-    constants::ResourceType,
-    objects::GameObject,
-};
+use crate::{constants::ResourceType, objects::GameObject};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
