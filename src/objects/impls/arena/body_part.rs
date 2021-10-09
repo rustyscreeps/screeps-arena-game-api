@@ -1,7 +1,4 @@
-use crate::{
-    constants::Part,
-    objects::GameObject,
-};
+use crate::{constants::Part, objects::GameObject};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
@@ -18,7 +15,6 @@ extern "C" {
     #[wasm_bindgen(method, getter = type)]
     pub fn part_type(this: &BodyPart) -> Part;
 }
-
 
 // impl JsContainerFromValue for BodyPart {
 //     fn from_value(val: JsValue) -> Self {

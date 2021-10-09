@@ -1,7 +1,6 @@
 use js_sys::{Array, Object};
-use serde::{Serialize, Deserialize};
-use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
+use serde::{Deserialize, Serialize};
+use wasm_bindgen::{prelude::*, JsCast};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Position {
@@ -11,7 +10,8 @@ pub struct Position {
 
 #[wasm_bindgen(module = "game/path-finder")]
 extern "C" {
-    /// Find an optimal path between origin and goal. Note that searchPath without costMatrix specified (see below) use terrain data only.
+    /// Find an optimal path between origin and goal. Note that searchPath
+    /// without costMatrix specified (see below) use terrain data only.
     #[wasm_bindgen(js_name = searchPath)]
     pub fn search_path(
         origin: &Object,
@@ -25,7 +25,8 @@ extern "C" {
     #[wasm_bindgen]
     pub type CostMatrix;
 
-    /// Creates a new CostMatrix containing 0's for all positions. searchPath use terrain cost for positions with 0 cost
+    /// Creates a new CostMatrix containing 0's for all positions. searchPath
+    /// use terrain cost for positions with 0 cost
     #[wasm_bindgen(constructor)]
     pub fn new() -> CostMatrix;
 
@@ -35,7 +36,7 @@ extern "C" {
 
     /// Set the cost of a position in this CostMatrix.
     #[wasm_bindgen(method)]
-    pub fn set(this: &CostMatrix, x: u8, y: u8, cost: u8); 
+    pub fn set(this: &CostMatrix, x: u8, y: u8, cost: u8);
 
     /// Get the cost of a position in this CostMatrix.
     #[wasm_bindgen(method)]
@@ -59,11 +60,14 @@ extern "C" {
     #[wasm_bindgen(method, setter = swampCost)]
     pub fn swamp_cost(this: &SearchPathOptions, cost: u8);
 
-    /// Instead of searching for a path to the goals this will search for a path away from the goals. The cheapest path that is out of range of every goal will be returned. The default is false
+    /// Instead of searching for a path to the goals this will search for a path
+    /// away from the goals. The cheapest path that is out of range of every
+    /// goal will be returned. The default is false
     #[wasm_bindgen(method, setter = flee)]
     pub fn flee(this: &SearchPathOptions, val: bool);
 
-    /// number (The maximum allowed pathfinding operations. The default value is 50000)
+    /// number (The maximum allowed pathfinding operations. The default value is
+    /// 50000)
     #[wasm_bindgen(method, setter = maxOps)]
     pub fn max_ops(this: &SearchPathOptions, ops: u32);
 
@@ -71,7 +75,8 @@ extern "C" {
     #[wasm_bindgen(method, setter = maxCost)]
     pub fn max_cost(this: &SearchPathOptions, cost: f64);
 
-    /// Weight from 1 to 9 to apply to the heuristic in the A* formula F = G + weight * H. The default value is 1.2
+    /// Weight from 1 to 9 to apply to the heuristic in the A* formula F = G +
+    /// weight * H. The default value is 1.2
     #[wasm_bindgen(method, setter = heuristicWeight)]
     pub fn heuristic_weight(this: &SearchPathOptions, weight: f64);
 }
@@ -99,11 +104,14 @@ extern "C" {
     #[wasm_bindgen(method, setter = swampCost)]
     pub fn swamp_cost(this: &FindPathOptions, cost: u8);
 
-    /// Instead of searching for a path to the goals this will search for a path away from the goals. The cheapest path that is out of range of every goal will be returned. The default is false
+    /// Instead of searching for a path to the goals this will search for a path
+    /// away from the goals. The cheapest path that is out of range of every
+    /// goal will be returned. The default is false
     #[wasm_bindgen(method, setter = flee)]
     pub fn flee(this: &FindPathOptions, val: bool);
 
-    /// number (The maximum allowed pathfinding operations. The default value is 50000)
+    /// number (The maximum allowed pathfinding operations. The default value is
+    /// 50000)
     #[wasm_bindgen(method, setter = maxOps)]
     pub fn max_ops(this: &FindPathOptions, ops: u32);
 
@@ -111,7 +119,8 @@ extern "C" {
     #[wasm_bindgen(method, setter = maxCost)]
     pub fn max_cost(this: &FindPathOptions, cost: f64);
 
-    /// Weight from 1 to 9 to apply to the heuristic in the A* formula F = G + weight * H. The default value is 1.2
+    /// Weight from 1 to 9 to apply to the heuristic in the A* formula F = G +
+    /// weight * H. The default value is 1.2
     #[wasm_bindgen(method, setter = heuristicWeight)]
     pub fn heuristic_weight(this: &FindPathOptions, weight: f64);
 
@@ -151,11 +160,12 @@ extern "C" {
 }
 
 impl SearchResults {
-    pub fn path (&self) -> Vec<Position> {
-        self
-            .path_internal()
+    pub fn path(&self) -> Vec<Position> {
+        self.path_internal()
             .iter()
-            .map(|p| serde_wasm_bindgen::from_value(p).expect("expected valid Position in path results"))
+            .map(|p| {
+                serde_wasm_bindgen::from_value(p).expect("expected valid Position in path results")
+            })
             .collect()
     }
 }

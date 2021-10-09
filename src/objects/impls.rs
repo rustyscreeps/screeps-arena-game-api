@@ -1,9 +1,9 @@
 mod arena;
 mod construction_site;
 mod creep;
+mod game_object;
 mod owned_structure;
 mod resource;
-mod game_object;
 mod source;
 mod store;
 mod structure;
@@ -19,9 +19,9 @@ pub use self::{
     arena::*,
     construction_site::{ConstructionSite, CONSTRUCTION_SITE_PROTOTYPE},
     creep::{Creep, CREEP_PROTOTYPE},
+    game_object::{GameObject, GAME_OBJECT_PROTOTYPE},
     owned_structure::{OwnedStructure, OWNED_STRUCTURE_PROTOTYPE},
     resource::{Resource, RESOURCE_PROTOTYPE},
-    game_object::{GameObject, GAME_OBJECT_PROTOTYPE},
     source::{Source, SOURCE_PROTOTYPE},
     store::Store,
     structure::{Structure, STRUCTURE_PROTOTYPE},

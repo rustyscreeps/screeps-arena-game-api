@@ -1,6 +1,6 @@
 use crate::{
     constants::{Part, ReturnCode},
-    objects::{Creep, OwnedStructure, GameObject, Store, Structure},
+    objects::{Creep, GameObject, OwnedStructure, Store, Structure},
     prelude::*,
 };
 use js_sys::{Array, Object};
@@ -35,15 +35,12 @@ extern "C" {
     ///
     /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.spawnCreep)
     #[wasm_bindgen(method, js_name = spawnCreep)]
-    fn spawn_creep_internal(
-        this: &StructureSpawn,
-        body: &Array,
-    ) -> SpawnCreepResult;
+    fn spawn_creep_internal(this: &StructureSpawn, body: &Array) -> SpawnCreepResult;
 }
 
 impl StructureSpawn {
     pub fn spawn_creep(&self, body: &[Part]) -> Result<Creep, ReturnCode> {
-        let body = body.iter().cloned().map(JsValue::from).collect();    
+        let body = body.iter().cloned().map(JsValue::from).collect();
         let r = Self::spawn_creep_internal(self, &body);
 
         match r.object() {
@@ -59,7 +56,6 @@ extern "C" {
 
     #[wasm_bindgen(method, getter)]
     fn object(this: &SpawnCreepResult) -> Option<Creep>;
-
 
     #[wasm_bindgen(method, getter)]
     fn error(this: &SpawnCreepResult) -> ReturnCode;

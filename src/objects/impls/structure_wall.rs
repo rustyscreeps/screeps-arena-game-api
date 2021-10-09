@@ -1,6 +1,4 @@
-use crate::{
-    objects::{GameObject, Structure}
-};
+use crate::objects::{GameObject, Structure};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 

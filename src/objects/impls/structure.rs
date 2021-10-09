@@ -1,7 +1,4 @@
-use crate::{
-    objects::GameObject,
-    prelude::*,
-};
+use crate::{objects::GameObject, prelude::*};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
@@ -23,7 +20,10 @@ extern "C" {
     pub fn hits_max(this: &Structure) -> u32;
 }
 
-impl<T> HasHits for T where T: AsRef<Structure> {
+impl<T> HasHits for T
+where
+    T: AsRef<Structure>,
+{
     fn hits(&self) -> u32 {
         Structure::hits(self.as_ref())
     }

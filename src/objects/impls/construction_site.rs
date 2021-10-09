@@ -1,4 +1,7 @@
-use crate::{constants::ReturnCode, objects::{GameObject, Structure}};
+use crate::{
+    constants::ReturnCode,
+    objects::{GameObject, Structure},
+};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 

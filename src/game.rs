@@ -7,8 +7,8 @@
 use serde::Deserialize;
 use wasm_bindgen::prelude::*;
 
-pub mod utils;
 pub mod pathfinder;
+pub mod utils;
 
 #[wasm_bindgen(module = "game")]
 extern "C" {

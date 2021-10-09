@@ -11,12 +11,7 @@ pub mod objects;
 pub mod traits;
 // pub mod containers;
 
-pub use crate::{
-	constants::*, enums::*, objects::*, traits::*,
-};
-// pub use crate::{
-//     constants::*, containers::*, enums::*, game::*, local::*, objects::*, pathfinder::*, raw_memory::*, traits::*,
-// };
+pub use crate::{constants::*, enums::*, objects::*, traits::*};
 
 // /// Traits which implement base functionalities for Screeps types.
 // ///

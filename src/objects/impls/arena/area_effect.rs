@@ -1,7 +1,4 @@
-use crate::{
-    constants::EffectType,
-    objects::GameObject,
-};
+use crate::{constants::EffectType, objects::GameObject};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
@@ -18,7 +15,6 @@ extern "C" {
     #[wasm_bindgen(method, getter)]
     pub fn effect(this: &AreaEffect) -> EffectType;
 }
-
 
 // impl JsContainerFromValue for AreaEffect {
 //     fn from_value(val: JsValue) -> Self {

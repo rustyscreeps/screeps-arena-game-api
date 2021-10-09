@@ -1,7 +1,6 @@
 use crate::constants::ResourceType;
-use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
-use js_sys::{Object};
+use js_sys::Object;
+use wasm_bindgen::{prelude::*, JsCast};
 
 #[wasm_bindgen]
 extern "C" {
@@ -9,19 +8,24 @@ extern "C" {
     #[wasm_bindgen]
     pub type Store;
 
-    /// You can get specific resources from the store by addressing them as object properties
+    /// You can get specific resources from the store by addressing them as
+    /// object properties
     #[wasm_bindgen(method, structural, indexing_getter)]
     pub fn get(this: &Store, ty: ResourceType) -> Option<u32>;
 
-    /// Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if resource is undefined.
+    /// Returns capacity of this store for the specified resource. For a general
+    /// purpose store, it returns total capacity if resource is undefined.
     #[wasm_bindgen(method, js_name = getCapacity)]
     pub fn get_capacity(this: &Store, ty: Option<ResourceType>) -> u32;
 
-    /// Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if resource is defined and valid for this store.
+    /// Returns free capacity for the store. For a limited store, it returns the
+    /// capacity available for the specified resource if resource is defined and
+    /// valid for this store.
     #[wasm_bindgen(method, js_name = getFreeCapacity)]
     pub fn get_free_capacity(this: &Store, ty: Option<ResourceType>) -> i32;
 
-    /// Returns the capacity used by the specified resource. For a general purpose store, it returns total used capacity if resource is undefined.
+    /// Returns the capacity used by the specified resource. For a general
+    /// purpose store, it returns total used capacity if resource is undefined.
     #[wasm_bindgen(method, js_name = getUsedCapacity)]
     pub fn get_used_capacity(this: &Store, ty: Option<ResourceType>) -> u32;
 }

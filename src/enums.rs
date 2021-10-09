@@ -1,7 +1,6 @@
 use enum_dispatch::enum_dispatch;
 
-use crate::objects::*;
-use crate::prelude::*;
+use crate::{objects::*, prelude::*};
 
 #[enum_dispatch(Attackable)]
 pub enum AttackableObject {

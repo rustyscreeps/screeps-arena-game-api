@@ -3,9 +3,9 @@ use wasm_bindgen::prelude::*;
 use js_sys::{Array, JsString, Object};
 
 use crate::{
-    objects::*,
-    constants::{prototypes::PrototypeConstant, Direction, Terrain, ReturnCode},
+    constants::{prototypes::PrototypeConstant, Direction, ReturnCode, Terrain},
     game::pathfinder::{FindPathOptions, SearchResults},
+    objects::*,
 };
 
 #[wasm_bindgen(module = "game/utils")]
@@ -26,7 +26,8 @@ extern "C" {
     #[wasm_bindgen(js_name = getObjects)]
     pub fn get_objects() -> Array;
 
-    /// Get all objects in the game with the specified prototype, for example, all creeps
+    /// Get all objects in the game with the specified prototype, for example,
+    /// all creeps
     #[wasm_bindgen(js_name = getObjectsByPrototype)]
     fn get_objects_by_prototype_internal(prototype: &Object) -> Array;
 
@@ -39,46 +40,65 @@ extern "C" {
     pub fn get_direction(dx: u8, dy: u8) -> Direction;
 
     /// Find an optimal path between fromPos and toPos. Unlike searchPath,
-    /// findPath avoid all obstacles by default (unless costMatrix is specified).
+    /// findPath avoid all obstacles by default (unless costMatrix is
+    /// specified).
     #[wasm_bindgen(js_name = findPath)]
-    pub fn find_path(from_pos: &Object, to_pos: &Object, options: Option<&FindPathOptions>) -> SearchResults;
+    pub fn find_path(
+        from_pos: &Object,
+        to_pos: &Object,
+        options: Option<&FindPathOptions>,
+    ) -> SearchResults;
 
-    /// Get linear range between two objects. a and b may be any object containing x and y properties.
+    /// Get linear range between two objects. a and b may be any object
+    /// containing x and y properties.
     #[wasm_bindgen(js_name = getRange)]
     pub fn get_range(a: &Object, b: &Object) -> u8;
 
-    /// Get an integer representation of the terrain at the given position. pos should be an object containing x and y properties. Returns TERRAIN_WALL, TERRAIN_SWAMP, or 0.
+    /// Get an integer representation of the terrain at the given position. pos
+    /// should be an object containing x and y properties. Returns TERRAIN_WALL,
+    /// TERRAIN_SWAMP, or 0.
     #[wasm_bindgen(js_name = getTerrainAt)]
     pub fn get_terrain_at(pos: &Object) -> Terrain;
 
-    /// Find all positions from the given positions array within the specified linear range.
+    /// Find all positions from the given positions array within the specified
+    /// linear range.
     #[wasm_bindgen(js_name = findInRange)]
     pub fn find_in_range(from_pos: &Object, positions: &Array, range: u8) -> Array;
 
-    /// Find a position with the shortest linear distance from the given position, or null otherwise.
+    /// Find a position with the shortest linear distance from the given
+    /// position, or null otherwise.
     #[wasm_bindgen(js_name = findClosestByRange)]
     pub fn find_closest_by_range(from_pos: &Object, positions: &Array) -> Option<Object>;
 
-    /// Find a position with the shortest path from the given position, or null otherwise.
+    /// Find a position with the shortest path from the given position, or null
+    /// otherwise.
     #[wasm_bindgen(js_name = findClosestByPath)]
-    pub fn find_closest_by_path(from_pos: &Object, positions: &Array, options: Option<&FindPathOptions>) -> Option<Object>;
+    pub fn find_closest_by_path(
+        from_pos: &Object,
+        positions: &Array,
+        options: Option<&FindPathOptions>,
+    ) -> Option<Object>;
 
-    /// Create a new construction site at the specified location. Returns the ConstructionSite object instance. You can create maximum 10 active construction sites.
+    /// Create a new construction site at the specified location. Returns the
+    /// ConstructionSite object instance. You can create maximum 10 active
+    /// construction sites.
     #[wasm_bindgen(js_name = createConstructionSite)]
-    fn create_construction_site_internal(x: u8, y: u8, structure_type: &Object) -> CreateConstructionSiteResult;
+    fn create_construction_site_internal(
+        x: u8,
+        y: u8,
+        structure_type: &Object,
+    ) -> CreateConstructionSiteResult;
 }
 
 pub fn get_objects_by_prototype<T>(ty: T) -> Vec<T::Item>
 where
-    T: PrototypeConstant
+    T: PrototypeConstant,
 {
     get_objects_by_prototype_internal(ty.prototype())
         .iter()
         .map(Into::into)
         .collect()
 }
-
-
 
 #[wasm_bindgen]
 extern "C" {
@@ -88,12 +108,15 @@ extern "C" {
     #[wasm_bindgen(method, getter)]
     fn object(this: &CreateConstructionSiteResult) -> Option<ConstructionSite>;
 
-
     #[wasm_bindgen(method, getter)]
     fn error(this: &CreateConstructionSiteResult) -> ReturnCode;
 }
 
-pub fn create_construction_site(x: u8, y: u8, structure_type: &Object) -> Result<ConstructionSite, ReturnCode> {
+pub fn create_construction_site(
+    x: u8,
+    y: u8,
+    structure_type: &Object,
+) -> Result<ConstructionSite, ReturnCode> {
     let r = create_construction_site_internal(x, y, structure_type);
 
     match r.object() {
