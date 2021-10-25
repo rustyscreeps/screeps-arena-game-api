@@ -205,7 +205,7 @@ impl Transferable for StructureContainer {}
 impl Transferable for StructureExtension {}
 impl Transferable for StructureSpawn {}
 impl Transferable for StructureTower {}
-#[cfg(feature="enable-score")]
+#[cfg(feature = "enable-score")]
 impl Transferable for ScoreCollector {}
 
 // NOTE: keep impls for Structure* in sync with accessor methods in
