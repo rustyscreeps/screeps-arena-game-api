@@ -5,11 +5,7 @@ use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
-use std::{
-    convert::Infallible,
-    fmt,
-    str::FromStr,
-};
+use std::{convert::Infallible, fmt, str::FromStr};
 use wasm_bindgen::prelude::*;
 //use crate::constants::find::Find;
 
