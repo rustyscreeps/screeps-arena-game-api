@@ -59,19 +59,18 @@
 // //! [`FromStr`]: std::str::FromStr
 // //! [`Display`]: std::fmt::Display
 
-// pub mod extra;
-// pub mod numbers;
-// mod recipes;
-// pub mod seasonal;
+pub mod numbers;
 pub mod prototypes;
 mod small_enums;
 mod types;
-// pub mod look;
-// pub mod find;
+//mod recipes; // TODO: most/all of this is World specific
+//pub mod seasonal;
+//pub mod extra; // TODO: most/all of this is World specific
+//pub mod look; // TODO: most/all of this is World specific
+//pub mod find; // TODO: most/all of this is World specific
 
-pub use self::{small_enums::*, types::*};
-//pub use self::{extra::*, numbers::*, recipes::FactoryRecipe, small_enums::*,
-// types::*, look::*};
+pub use self::{small_enums::*, types::*, numbers::*};
+//pub use self::{extra::*, look::*, recipes::FactoryRecipe}; // TODO: most/all of this is World specific
 
 // pub use self::find::{FindConstant, Find, CREEPS, MY_CREEPS, HOSTILE_CREEPS,
 // SOURCES_ACTIVE, SOURCES, DROPPED_RESOURCES, STRUCTURES, MY_STRUCTURES,
