@@ -1,15 +1,14 @@
-
 pub const BODYPART_HITS: u32 = 100;
 
-pub const RANGED_ATTACK_POWER: u32  = 10;
+pub const RANGED_ATTACK_POWER: u32 = 10;
 
-pub const RANGED_ATTACK_DISTANCE_RATE: &[f32;4] = &[1.0_f32, 1.0_f32, 0.4_f32, 0.1_f32];
+pub const RANGED_ATTACK_DISTANCE_RATE: &[f32; 4] = &[1.0_f32, 1.0_f32, 0.4_f32, 0.1_f32];
 
-pub const ATTACK_POWER: u32  = 30;
+pub const ATTACK_POWER: u32 = 30;
 
-pub const HEAL_POWER: u32  = 12;
+pub const HEAL_POWER: u32 = 12;
 
-pub const RANGED_HEAL_POWER: u32  = 4;
+pub const RANGED_HEAL_POWER: u32 = 4;
 
 pub const CARRY_CAPACITY: u32 = 50;
 
@@ -25,7 +24,14 @@ pub const HARVEST_POWER: u32 = 2;
 
 pub const BUILD_POWER: u32 = 5;
 
-pub const OBSTACLE_OBJECT_TYPES: &[&str;6] = &["creep","tower","constructedWall","spawn","extension","link"];
+pub const OBSTACLE_OBJECT_TYPES: &[&str; 6] = &[
+    "creep",
+    "tower",
+    "constructedWall",
+    "spawn",
+    "extension",
+    "link",
+];
 
 pub const TOWER_ENERGY_COST: u32 = 10;
 
@@ -53,9 +59,9 @@ pub const MAX_CREEP_SIZE: u32 = 50;
 
 pub const CREEP_SPAWN_TIME: u32 = 3;
 
-pub const RESOURCE_ENERGY: &str =  "energy";
+pub const RESOURCE_ENERGY: &str = "energy";
 
-pub const RESOURCES_ALL: &[&str;1] = &[RESOURCE_ENERGY];
+pub const RESOURCES_ALL: &[&str; 1] = &[RESOURCE_ENERGY];
 
 pub const SOURCE_ENERGY_REGEN: u32 = 10;
 
