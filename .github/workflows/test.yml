@@ -88,7 +88,8 @@ jobs:
       matrix:
         rust:
           - stable
-          - nightly
+          # temporarily disabled due to https://github.com/rust-lang/rust-clippy/issues/12377
+          #- nightly
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2

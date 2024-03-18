@@ -69,8 +69,9 @@ mod types;
 //pub mod look; // TODO: most/all of this is World specific
 //pub mod find; // TODO: most/all of this is World specific
 
-pub use self::{small_enums::*, types::*, numbers::*};
-//pub use self::{extra::*, look::*, recipes::FactoryRecipe}; // TODO: most/all of this is World specific
+pub use self::{numbers::*, small_enums::*, types::*};
+//pub use self::{extra::*, look::*, recipes::FactoryRecipe}; // TODO: most/all
+// of this is World specific
 
 // pub use self::find::{FindConstant, Find, CREEPS, MY_CREEPS, HOSTILE_CREEPS,
 // SOURCES_ACTIVE, SOURCES, DROPPED_RESOURCES, STRUCTURES, MY_STRUCTURES,

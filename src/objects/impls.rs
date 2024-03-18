@@ -16,7 +16,6 @@ mod structure_tower;
 mod structure_wall;
 
 pub use self::{
-    arena::*,
     construction_site::{ConstructionSite, CONSTRUCTION_SITE_PROTOTYPE},
     creep::{Creep, CREEP_PROTOTYPE},
     game_object::{GameObject, GAME_OBJECT_PROTOTYPE},
@@ -33,3 +32,15 @@ pub use self::{
     structure_tower::{StructureTower, STRUCTURE_TOWER_PROTOTYPE},
     structure_wall::{StructureWall, STRUCTURE_WALL_PROTOTYPE},
 };
+
+#[cfg(feature = "enable-body-part")]
+pub use self::arena::{BodyPart, BODY_PART_PROTOTYPE};
+
+#[cfg(feature = "enable-flag")]
+pub use self::arena::{Flag, FLAG_PROTOTYPE};
+
+#[cfg(feature = "enable-area-effect")]
+pub use self::arena::{AreaEffect, AREA_EFFECT_PROTOTYPE};
+
+#[cfg(feature = "enable-score")]
+pub use self::arena::{ScoreCollector, SCORE_COLLECTOR_PROTOTYPE};
