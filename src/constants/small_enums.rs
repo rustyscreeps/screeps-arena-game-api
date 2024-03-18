@@ -6,7 +6,7 @@ use num_traits::FromPrimitive;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::{
-    convert::{Infallible, TryFrom},
+    convert::Infallible,
     fmt,
     str::FromStr,
 };
