@@ -14,8 +14,8 @@ extern "C" {
     /// without costMatrix specified (see below) use terrain data only.
     #[wasm_bindgen(js_name = searchPath)]
     pub fn search_path(
-        origin: &Object,
-        goal: &Object,
+        origin: &JsValue,
+        goal: &JsValue,
         options: Option<&SearchPathOptions>,
     ) -> SearchResults;
 }
