@@ -59,6 +59,7 @@
 // //! [`FromStr`]: std::str::FromStr
 // //! [`Display`]: std::fmt::Display
 
+pub mod extra;
 pub mod numbers;
 pub mod prototypes;
 mod small_enums;
