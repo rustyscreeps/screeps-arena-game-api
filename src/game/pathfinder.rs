@@ -1,6 +1,6 @@
 use js_sys::{Array, Object};
 use serde::{Deserialize, Serialize};
-use wasm_bindgen::{prelude::*, JsCast};
+use wasm_bindgen::prelude::*;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Position {
