@@ -1,6 +1,6 @@
 use js_sys::{Array, Object};
 use serde::{Deserialize, Serialize};
-use wasm_bindgen::{prelude::*, JsCast};
+use wasm_bindgen::prelude::*;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Position {
@@ -14,8 +14,8 @@ extern "C" {
     /// without costMatrix specified (see below) use terrain data only.
     #[wasm_bindgen(js_name = searchPath)]
     pub fn search_path(
-        origin: &Object,
-        goal: &Object,
+        origin: &JsValue,
+        goal: &JsValue,
         options: Option<&SearchPathOptions>,
     ) -> SearchResults;
 }
