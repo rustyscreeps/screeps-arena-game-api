@@ -60,8 +60,8 @@ extern "C" {
 }
 
 impl GameObject {
-    /* Although Creep.id is documented as a string, in practice it is sometimes of
-     * type number.
+    /* Although Creep.id is documented as a string, in practice it is sometimes
+     * of type number.
      * This seems to happen in swamp & spawn but not in ctf.
      * This function returns a JsString always, converting if necessary.
      */
