@@ -20,8 +20,8 @@ extern "C" {
 
     /// The unique ID of this object that you can use in
     /// /game/utils::getObjectById
-    #[wasm_bindgen(method, getter)]
-    pub fn id(this: &GameObject) -> JsString;
+    #[wasm_bindgen(method, getter, js_name = "id")]
+    pub fn id_internal(this: &GameObject) -> JsValue;
 
     /// The X coordinate in the room.
     #[wasm_bindgen(method, getter)]
@@ -57,6 +57,28 @@ extern "C" {
 
     #[wasm_bindgen(method, js_name = getRangeTo)]
     pub fn get_range_to(this: &GameObject, pos: &Object) -> u8;
+}
+
+impl GameObject {
+    /* Although Creep.id is documented as a string, in practice it is sometimes of
+     * type number.
+     * This seems to happen in swamp & spawn but not in ctf.
+     * This function returns a JsString always, converting if necessary.
+     */
+    pub fn id(&self) -> JsString {
+        let i = self.id_internal();
+        let as_str = i.dyn_into::<JsString>();
+        match as_str {
+            Ok(s) => s,
+            Err(i) => {
+                let as_f64 = i.as_f64();
+                match as_f64 {
+                    Some(f) => JsString::from(format!("{f}")),
+                    None => i.unchecked_into::<JsString>(), // this will probably crash
+                }
+            }
+        }
+    }
 }
 
 impl<T> GameObjectProperties for T
