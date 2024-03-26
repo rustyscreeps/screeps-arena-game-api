@@ -35,6 +35,7 @@ typesafe_prototype_constants! {
     pub struct RESOURCE = (RESOURCE_PROTOTYPE, Resource);
     pub struct SOURCE = (SOURCE_PROTOTYPE, Source);
     pub struct STRUCTURE = (STRUCTURE_PROTOTYPE, Structure);
+    pub struct OWNED_STRUCTURE = (OWNED_STRUCTURE_PROTOTYPE, OwnedStructure);
     pub struct STRUCTURE_CONTAINER = (STRUCTURE_CONTAINER_PROTOTYPE, StructureContainer);
     pub struct STRUCTURE_EXTENSION = (STRUCTURE_EXTENSION_PROTOTYPE, StructureExtension);
     pub struct STRUCTURE_RAMPART = (STRUCTURE_RAMPART_PROTOTYPE, StructureRampart);
