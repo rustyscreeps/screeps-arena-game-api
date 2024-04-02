@@ -1,11 +1,41 @@
 use js_sys::{Array, Object};
 use serde::{Deserialize, Serialize};
+use std::fmt;
 use wasm_bindgen::prelude::*;
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Position {
     pub x: u8,
     pub y: u8,
+}
+
+impl fmt::Display for Position {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "[pos {},{}]", self.x, self.y)
+    }
+}
+
+impl Position {
+    pub fn range_to(&self, pos: &Position) -> u8 {
+        let diff_x = if self.x > pos.x {
+            self.x - pos.x
+        } else {
+            pos.x - self.x
+        };
+        let diff_y = if self.y > pos.y {
+            self.y - pos.y
+        } else {
+            pos.y - self.y
+        };
+
+        std::cmp::max(diff_x, diff_y)
+    }
+}
+
+impl From<Position> for JsValue {
+    fn from(pos: Position) -> JsValue {
+        serde_wasm_bindgen::to_value(&pos).expect("serializable Position")
+    }
 }
 
 #[wasm_bindgen(module = "game/path-finder")]

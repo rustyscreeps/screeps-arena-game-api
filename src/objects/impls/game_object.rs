@@ -1,5 +1,5 @@
 use crate::{
-    game::pathfinder::{FindPathOptions, SearchResults},
+    game::pathfinder::{FindPathOptions, Position, SearchResults},
     prelude::*,
 };
 use js_sys::{Array, JsString, Object};
@@ -79,6 +79,13 @@ impl GameObject {
             }
         }
     }
+
+    pub fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
+    }
 }
 
 impl<T> GameObjectProperties for T
@@ -99,6 +106,10 @@ where
 
     fn y(&self) -> u8 {
         GameObject::y(self.as_ref())
+    }
+
+    fn pos(&self) -> Position {
+        GameObject::pos(self.as_ref())
     }
 
     fn ticks_to_decay(&self) -> Option<u32> {
