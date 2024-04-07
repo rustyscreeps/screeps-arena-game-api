@@ -1,3 +1,4 @@
+use crate::constants::Direction;
 use js_sys::{Array, Object};
 use serde::{Deserialize, Serialize};
 use std::fmt;
@@ -17,18 +18,44 @@ impl fmt::Display for Position {
 
 impl Position {
     pub fn range_to(&self, pos: &Position) -> u8 {
-        let diff_x = if self.x > pos.x {
-            self.x - pos.x
-        } else {
-            pos.x - self.x
-        };
-        let diff_y = if self.y > pos.y {
-            self.y - pos.y
-        } else {
-            pos.y - self.y
-        };
+        std::cmp::max(self.x.abs_diff(pos.x), self.y.abs_diff(pos.y))
+    }
 
-        std::cmp::max(diff_x, diff_y)
+    pub fn dir(&self, dir: Direction) -> Position {
+        match dir {
+            Direction::Top => Position {
+                x: self.x,
+                y: self.y - 1,
+            },
+            Direction::TopRight => Position {
+                x: self.x + 1,
+                y: self.y - 1,
+            },
+            Direction::Right => Position {
+                x: self.x + 1,
+                y: self.y,
+            },
+            Direction::BottomRight => Position {
+                x: self.x + 1,
+                y: self.y + 1,
+            },
+            Direction::Bottom => Position {
+                x: self.x,
+                y: self.y + 1,
+            },
+            Direction::BottomLeft => Position {
+                x: self.x - 1,
+                y: self.y + 1,
+            },
+            Direction::Left => Position {
+                x: self.x - 1,
+                y: self.y,
+            },
+            Direction::TopLeft => Position {
+                x: self.x - 1,
+                y: self.y - 1,
+            },
+        }
     }
 }
 
