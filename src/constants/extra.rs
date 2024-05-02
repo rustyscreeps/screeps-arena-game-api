@@ -75,3 +75,7 @@ pub const RANGED_MASS_ATTACK_POWER_RANGE_2: u32 = 4;
 ///
 /// [`Creep::ranged_mass_attack`]: crate::objects::Creep::ranged_mass_attack
 pub const RANGED_MASS_ATTACK_POWER_RANGE_3: u32 = 1;
+
+pub const ROOM_WIDTH: u8 = 100;
+
+pub const ROOM_HEIGHT: u8 = 100;
