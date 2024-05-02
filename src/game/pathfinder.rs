@@ -1,7 +1,9 @@
 use crate::constants::Direction;
+use crate::constants::{ROOM_HEIGHT, ROOM_WIDTH};
 use js_sys::{Array, Object};
 use serde::{Deserialize, Serialize};
 use std::fmt;
+use std::ops::Add;
 use wasm_bindgen::prelude::*;
 
 #[derive(Serialize, Deserialize, Debug, Copy, Clone, PartialEq, Eq, Hash)]
@@ -21,40 +23,33 @@ impl Position {
         std::cmp::max(self.x.abs_diff(pos.x), self.y.abs_diff(pos.y))
     }
 
-    pub fn dir(&self, dir: Direction) -> Position {
-        match dir {
-            Direction::Top => Position {
-                x: self.x,
-                y: self.y - 1,
-            },
-            Direction::TopRight => Position {
-                x: self.x + 1,
-                y: self.y - 1,
-            },
-            Direction::Right => Position {
-                x: self.x + 1,
-                y: self.y,
-            },
-            Direction::BottomRight => Position {
-                x: self.x + 1,
-                y: self.y + 1,
-            },
-            Direction::Bottom => Position {
-                x: self.x,
-                y: self.y + 1,
-            },
-            Direction::BottomLeft => Position {
-                x: self.x - 1,
-                y: self.y + 1,
-            },
-            Direction::Left => Position {
-                x: self.x - 1,
-                y: self.y,
-            },
-            Direction::TopLeft => Position {
-                x: self.x - 1,
-                y: self.y - 1,
-            },
+    pub fn checked_add_direction(&self, dir: Direction) -> Option<Position> {
+        let delta: (i8, i8) = dir.into();
+        if (self.x == 0 && delta.0 < 0)
+            || (self.x == ROOM_WIDTH - 1 && delta.0 > 0)
+            || (self.y == 0 && delta.1 < 0)
+            || (self.y == ROOM_HEIGHT - 1 && delta.1 > 0)
+        {
+            None
+        } else {
+            Some(Position {
+                x: self.x.wrapping_add_signed(delta.0),
+                y: self.y.wrapping_add_signed(delta.1),
+            })
+        }
+    }
+
+    pub fn saturating_add_direction(&self, dir: Direction) -> Position {
+        let mut delta: (i8, i8) = dir.into();
+        if self.x >= ROOM_WIDTH - 1 && delta.0 > 0 {
+            delta.0 = 0;
+        }
+        if self.y >= ROOM_HEIGHT - 1 && delta.1 > 0 {
+            delta.1 = 0;
+        }
+        Position {
+            x: self.x.saturating_add_signed(delta.0),
+            y: self.y.saturating_add_signed(delta.1),
         }
     }
 }
@@ -62,6 +57,13 @@ impl Position {
 impl From<Position> for JsValue {
     fn from(pos: Position) -> JsValue {
         serde_wasm_bindgen::to_value(&pos).expect("serializable Position")
+    }
+}
+
+impl Add<Direction> for Position {
+    type Output = Position;
+    fn add(self, other: Direction) -> Self::Output {
+        self.checked_add_direction(other).expect("room boundaries")
     }
 }
 
