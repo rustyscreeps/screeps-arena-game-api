@@ -9,6 +9,7 @@ use wasm_bindgen::prelude::*;
 
 pub mod pathfinder;
 pub mod utils;
+pub mod visual;
 
 #[wasm_bindgen(module = "game")]
 extern "C" {

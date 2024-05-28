@@ -1,11 +1,68 @@
+use crate::constants::{Direction, ROOM_HEIGHT, ROOM_WIDTH};
 use js_sys::{Array, Object};
 use serde::{Deserialize, Serialize};
+use std::{fmt, ops::Add};
 use wasm_bindgen::prelude::*;
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Position {
     pub x: u8,
     pub y: u8,
+}
+
+impl fmt::Display for Position {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "[pos {},{}]", self.x, self.y)
+    }
+}
+
+impl Position {
+    pub fn range_to(&self, pos: &Position) -> u8 {
+        std::cmp::max(self.x.abs_diff(pos.x), self.y.abs_diff(pos.y))
+    }
+
+    pub fn checked_add_direction(&self, dir: Direction) -> Option<Position> {
+        let delta: (i8, i8) = dir.into();
+        if (self.x == 0 && delta.0 < 0)
+            || (self.x == ROOM_WIDTH - 1 && delta.0 > 0)
+            || (self.y == 0 && delta.1 < 0)
+            || (self.y == ROOM_HEIGHT - 1 && delta.1 > 0)
+        {
+            None
+        } else {
+            Some(Position {
+                x: self.x.wrapping_add_signed(delta.0),
+                y: self.y.wrapping_add_signed(delta.1),
+            })
+        }
+    }
+
+    pub fn saturating_add_direction(&self, dir: Direction) -> Position {
+        let mut delta: (i8, i8) = dir.into();
+        if self.x >= ROOM_WIDTH - 1 && delta.0 > 0 {
+            delta.0 = 0;
+        }
+        if self.y >= ROOM_HEIGHT - 1 && delta.1 > 0 {
+            delta.1 = 0;
+        }
+        Position {
+            x: self.x.saturating_add_signed(delta.0),
+            y: self.y.saturating_add_signed(delta.1),
+        }
+    }
+}
+
+impl From<Position> for JsValue {
+    fn from(pos: Position) -> JsValue {
+        serde_wasm_bindgen::to_value(&pos).expect("serializable Position")
+    }
+}
+
+impl Add<Direction> for Position {
+    type Output = Position;
+    fn add(self, other: Direction) -> Self::Output {
+        self.checked_add_direction(other).expect("room boundaries")
+    }
 }
 
 #[wasm_bindgen(module = "game/path-finder")]

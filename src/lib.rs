@@ -3,6 +3,9 @@
 // to build locally with doc_cfg enabled, run:
 // `RUSTDOCFLAGS="--cfg docsrs" cargo +nightly doc --all-features`
 #![cfg_attr(docsrs, feature(doc_cfg))]
+// temporary workaround for https://github.com/rust-lang/rust-clippy/issues/12377
+// fix not being in current stable rust 1.78; should be fixed in 1.79
+#![allow(clippy::empty_docs)]
 
 pub mod constants;
 pub mod enums;

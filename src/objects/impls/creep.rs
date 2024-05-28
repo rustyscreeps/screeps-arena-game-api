@@ -104,6 +104,10 @@ extern "C" {
     #[wasm_bindgen(final, method, js_name = rangedMassAttack)]
     pub fn ranged_mass_attack(this: &Creep) -> ReturnCode;
 
+    /// This Creep attribute is only documented in the typescript typings.
+    #[wasm_bindgen(method, getter)]
+    pub fn spawning(this: &Creep) -> bool;
+
     // todo not yet in game but should be like this
     // #[wasm_bindgen(final, method)]
     // pub fn repair(this: &Creep, target: &GameObject) -> ReturnCode;

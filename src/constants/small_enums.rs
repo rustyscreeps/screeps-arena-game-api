@@ -95,6 +95,23 @@ pub enum Direction {
     TopLeft = 8,
 }
 
+impl From<Direction> for (i8, i8) {
+    /// Returns the change in (x, y) when moving in each direction.
+    #[inline]
+    fn from(direction: Direction) -> (i8, i8) {
+        match direction {
+            Direction::Top => (0, -1),
+            Direction::TopRight => (1, -1),
+            Direction::Right => (1, 0),
+            Direction::BottomRight => (1, 1),
+            Direction::Bottom => (0, 1),
+            Direction::BottomLeft => (-1, 1),
+            Direction::Left => (-1, 0),
+            Direction::TopLeft => (-1, -1),
+        }
+    }
+}
+
 impl ::std::ops::Neg for Direction {
     type Output = Direction;
 

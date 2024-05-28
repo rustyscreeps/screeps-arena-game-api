@@ -70,7 +70,7 @@ mod types;
 //pub mod look; // TODO: most/all of this is World specific
 //pub mod find; // TODO: most/all of this is World specific
 
-pub use self::{numbers::*, small_enums::*, types::*};
+pub use self::{extra::*, numbers::*, small_enums::*, types::*};
 //pub use self::{extra::*, look::*, recipes::FactoryRecipe}; // TODO: most/all
 // of this is World specific
 

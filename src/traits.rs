@@ -3,7 +3,7 @@ use js_sys::{Array, JsString, Object};
 
 use crate::{
     enums::*,
-    game::pathfinder::{FindPathOptions, SearchResults},
+    game::pathfinder::{FindPathOptions, Position, SearchResults},
     objects::*,
 };
 
@@ -151,6 +151,8 @@ pub trait GameObjectProperties {
 
     /// The Y coordinate in the room.
     fn y(&self) -> u8;
+
+    fn pos(&self) -> Position;
 
     /// If defined, then this object will disappear after this number of ticks.
     fn ticks_to_decay(&self) -> Option<u32>;
