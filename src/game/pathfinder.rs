@@ -1,9 +1,7 @@
-use crate::constants::Direction;
-use crate::constants::{ROOM_HEIGHT, ROOM_WIDTH};
+use crate::constants::{Direction, ROOM_HEIGHT, ROOM_WIDTH};
 use js_sys::{Array, Object};
 use serde::{Deserialize, Serialize};
-use std::fmt;
-use std::ops::Add;
+use std::{fmt, ops::Add};
 use wasm_bindgen::prelude::*;
 
 #[derive(Serialize, Deserialize, Debug, Copy, Clone, PartialEq, Eq, Hash)]
