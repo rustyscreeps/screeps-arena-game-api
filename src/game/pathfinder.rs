@@ -1,4 +1,7 @@
-use crate::constants::{Direction, ROOM_HEIGHT, ROOM_WIDTH};
+use crate::{
+    constants::{Direction, ROOM_HEIGHT, ROOM_WIDTH},
+    HasPosition,
+};
 use js_sys::{Array, Object};
 use serde::{Deserialize, Serialize};
 use std::{fmt, ops::Add};
@@ -17,10 +20,6 @@ impl fmt::Display for Position {
 }
 
 impl Position {
-    pub fn range_to(&self, pos: &Position) -> u8 {
-        std::cmp::max(self.x.abs_diff(pos.x), self.y.abs_diff(pos.y))
-    }
-
     pub fn checked_add_direction(&self, dir: Direction) -> Option<Position> {
         let delta: (i8, i8) = dir.into();
         if (self.x == 0 && delta.0 < 0)
@@ -49,6 +48,12 @@ impl Position {
             x: self.x.saturating_add_signed(delta.0),
             y: self.y.saturating_add_signed(delta.1),
         }
+    }
+}
+
+impl HasPosition for Position {
+    fn pos(&self) -> Position {
+        *self
     }
 }
 

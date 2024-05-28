@@ -1,6 +1,8 @@
 use crate::{
     constants::ReturnCode,
+    game::pathfinder::Position,
     objects::{GameObject, Structure},
+    HasPosition,
 };
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
@@ -35,4 +37,13 @@ extern "C" {
     /// Remove this [`ConstructionSite`].
     #[wasm_bindgen(method)]
     pub fn remove(this: &ConstructionSite) -> ReturnCode;
+}
+
+impl HasPosition for ConstructionSite {
+    fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
+    }
 }

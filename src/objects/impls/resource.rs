@@ -1,4 +1,6 @@
-use crate::{constants::ResourceType, objects::GameObject};
+use crate::{
+    constants::ResourceType, game::pathfinder::Position, objects::GameObject, HasPosition,
+};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
@@ -20,4 +22,13 @@ extern "C" {
     /// One of the RESOURCE_* constants.
     #[wasm_bindgen(method, getter = resourceType)]
     pub fn resource_type(this: &Resource) -> ResourceType;
+}
+
+impl HasPosition for Resource {
+    fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
+    }
 }

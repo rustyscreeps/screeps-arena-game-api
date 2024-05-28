@@ -1,4 +1,4 @@
-use crate::{constants::ResourceType, objects::GameObject};
+use crate::{constants::ResourceType, objects::GameObject, prelude::*};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
@@ -28,6 +28,14 @@ extern "C" {
     pub fn score_total(this: &ScoreCollector) -> u32;
 }
 
+impl HasPosition for ScoreCollector {
+    fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
+    }
+}
 // impl JsContainerFromValue for ScoreCollector {
 //     fn from_value(val: JsValue) -> Self {
 //         val.unchecked_into()

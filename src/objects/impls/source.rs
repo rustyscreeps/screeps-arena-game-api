@@ -1,4 +1,4 @@
-use crate::objects::GameObject;
+use crate::{game::pathfinder::Position, objects::GameObject, HasPosition};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
@@ -20,4 +20,13 @@ extern "C" {
     #[wasm_bindgen(method, getter = energyCapacity)]
     pub fn energy_capacity(this: &Source) -> u32;
 
+}
+
+impl HasPosition for Source {
+    fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
+    }
 }

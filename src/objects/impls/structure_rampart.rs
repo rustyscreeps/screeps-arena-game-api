@@ -1,4 +1,6 @@
+use crate::game::pathfinder::Position;
 use crate::objects::{GameObject, OwnedStructure, Structure};
+use crate::HasPosition;
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
@@ -12,4 +14,13 @@ extern "C" {
     #[wasm_bindgen(extends = GameObject, extends = Structure, extends = OwnedStructure)]
     #[derive(Clone)]
     pub type StructureRampart;
+}
+
+impl HasPosition for StructureRampart {
+    fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
+    }
 }
