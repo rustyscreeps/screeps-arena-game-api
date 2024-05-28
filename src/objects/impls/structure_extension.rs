@@ -1,4 +1,5 @@
 use crate::{
+    game::pathfinder::Position,
     objects::{GameObject, OwnedStructure, Store, Structure},
     prelude::*,
 };
@@ -29,5 +30,14 @@ extern "C" {
 impl HasStore for StructureExtension {
     fn store(&self) -> Store {
         Self::store(self)
+    }
+}
+
+impl HasPosition for StructureExtension {
+    fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
     }
 }

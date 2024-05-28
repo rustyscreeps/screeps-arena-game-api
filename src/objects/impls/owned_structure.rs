@@ -1,4 +1,5 @@
 use crate::{
+    game::pathfinder::Position,
     objects::{GameObject, Structure},
     prelude::*,
 };
@@ -28,5 +29,14 @@ where
 {
     fn my(&self) -> Option<bool> {
         OwnedStructure::my(self.as_ref())
+    }
+}
+
+impl HasPosition for OwnedStructure {
+    fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
     }
 }

@@ -1,4 +1,5 @@
 use crate::objects::GameObject;
+use crate::prelude::*;
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
@@ -17,6 +18,14 @@ extern "C" {
     pub fn my(this: &Flag) -> Option<bool>;
 }
 
+impl HasPosition for Flag {
+    fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
+    }
+}
 // impl JsContainerFromValue for Flag {
 //     fn from_value(val: JsValue) -> Self {
 //         val.unchecked_into()
