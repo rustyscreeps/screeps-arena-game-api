@@ -79,8 +79,10 @@ impl GameObject {
             }
         }
     }
+}
 
-    pub fn pos(&self) -> Position {
+impl HasPosition for GameObject {
+    fn pos(&self) -> Position {
         Position {
             x: self.x(),
             y: self.y(),
@@ -106,10 +108,6 @@ where
 
     fn y(&self) -> u8 {
         GameObject::y(self.as_ref())
-    }
-
-    fn pos(&self) -> Position {
-        GameObject::pos(self.as_ref())
     }
 
     fn ticks_to_decay(&self) -> Option<u32> {

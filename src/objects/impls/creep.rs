@@ -1,6 +1,6 @@
 use crate::{
     constants::{Direction, Part, ResourceType, ReturnCode},
-    game::pathfinder::FindPathOptions,
+    game::pathfinder::{FindPathOptions, Position},
     objects::{ConstructionSite, GameObject, Resource, Source, Store},
     prelude::*,
 };
@@ -192,5 +192,14 @@ impl HasHits for Creep {
 impl HasStore for Creep {
     fn store(&self) -> Store {
         Self::store(self)
+    }
+}
+
+impl HasPosition for Creep {
+    fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
     }
 }

@@ -1,4 +1,4 @@
-use crate::{constants::EffectType, objects::GameObject};
+use crate::{constants::EffectType, objects::GameObject, prelude::*};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
@@ -14,6 +14,15 @@ extern "C" {
     /// Returns the type of the body part.
     #[wasm_bindgen(method, getter)]
     pub fn effect(this: &AreaEffect) -> EffectType;
+}
+
+impl HasPosition for AreaEffect {
+    fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
+    }
 }
 
 // impl JsContainerFromValue for AreaEffect {

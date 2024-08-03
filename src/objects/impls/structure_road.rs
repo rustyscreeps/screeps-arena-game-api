@@ -1,4 +1,8 @@
-use crate::objects::{GameObject, Structure};
+use crate::{
+    game::pathfinder::Position,
+    objects::{GameObject, Structure},
+    HasPosition,
+};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
@@ -14,4 +18,13 @@ extern "C" {
     #[derive(Clone)]
     pub type StructureRoad;
 
+}
+
+impl HasPosition for StructureRoad {
+    fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
+    }
 }

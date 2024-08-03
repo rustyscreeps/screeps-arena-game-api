@@ -32,5 +32,5 @@ pub use crate::{constants::*, enums::*, objects::*, traits::*};
 // ///
 // /// This module contains all base functionality traits, and no structures.
 pub mod prelude {
-    pub use crate::traits::*;
+    pub use crate::{game::pathfinder::Position, traits::*};
 }

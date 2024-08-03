@@ -22,6 +22,18 @@ pub trait HasCooldown {
     fn cooldown(&self) -> u32;
 }
 
+pub trait HasPosition {
+    /// The position of the object
+    fn pos(&self) -> Position;
+    fn range_to(&self, has_pos: &impl HasPosition) -> u8 {
+        let other = has_pos.pos();
+        std::cmp::max(
+            self.pos().x.abs_diff(other.x),
+            self.pos().y.abs_diff(other.y),
+        )
+    }
+}
+
 // pub trait HasNativeId {
 //     fn native_id(&self) -> JsString;
 // }
@@ -151,8 +163,6 @@ pub trait GameObjectProperties {
 
     /// The Y coordinate in the room.
     fn y(&self) -> u8;
-
-    fn pos(&self) -> Position;
 
     /// If defined, then this object will disappear after this number of ticks.
     fn ticks_to_decay(&self) -> Option<u32>;

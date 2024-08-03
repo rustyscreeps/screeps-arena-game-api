@@ -1,5 +1,6 @@
 use crate::{
     constants::{Part, ReturnCode},
+    game::pathfinder::Position,
     objects::{Creep, GameObject, OwnedStructure, Store, Structure},
     prelude::*,
 };
@@ -64,5 +65,14 @@ extern "C" {
 impl HasStore for StructureSpawn {
     fn store(&self) -> Store {
         Self::store(self)
+    }
+}
+
+impl HasPosition for StructureSpawn {
+    fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
     }
 }

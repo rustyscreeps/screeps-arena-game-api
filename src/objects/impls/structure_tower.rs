@@ -1,5 +1,6 @@
 use crate::{
     constants::ReturnCode,
+    game::pathfinder::Position,
     objects::{Creep, GameObject, OwnedStructure, Store, Structure},
     prelude::*,
 };
@@ -54,5 +55,14 @@ impl StructureTower {
 impl HasStore for StructureTower {
     fn store(&self) -> Store {
         Self::store(self)
+    }
+}
+
+impl HasPosition for StructureTower {
+    fn pos(&self) -> Position {
+        Position {
+            x: self.x(),
+            y: self.y(),
+        }
     }
 }
