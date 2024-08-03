@@ -1,5 +1,4 @@
-use crate::game::pathfinder::Position;
-use crate::{objects::GameObject, prelude::*};
+use crate::{game::pathfinder::Position, objects::GameObject, prelude::*};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 

@@ -1,6 +1,8 @@
-use crate::game::pathfinder::Position;
-use crate::objects::{GameObject, Structure};
-use crate::HasPosition;
+use crate::{
+    game::pathfinder::Position,
+    objects::{GameObject, Structure},
+    HasPosition,
+};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
