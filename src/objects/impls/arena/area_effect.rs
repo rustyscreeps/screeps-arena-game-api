@@ -2,7 +2,7 @@ use crate::{constants::EffectType, objects::GameObject, prelude::*};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen(module = "arena")]
+#[wasm_bindgen(module = "arena/season_beta/collect_and_control/basic/prototypes")]
 extern "C" {
     #[wasm_bindgen(js_name = AreaEffect)]
     pub static AREA_EFFECT_PROTOTYPE: Object;
