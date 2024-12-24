@@ -118,8 +118,7 @@ extern "C" {
 ///
 /// Example usage:
 /// ```
-/// use screeps_arena::STRUCTURE_TOWER_PROTOTYPE;
-/// use screeps_arena::game;
+/// use screeps_arena::{game, STRUCTURE_TOWER_PROTOTYPE};
 /// let ret = game::utils::create_construction_site(10, 20, &STRUCTURE_TOWER_PROTOTYPE);
 /// ```
 pub fn create_construction_site(
