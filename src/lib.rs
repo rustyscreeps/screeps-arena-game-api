@@ -3,7 +3,6 @@
 // to build locally with doc_cfg enabled, run:
 // `RUSTDOCFLAGS="--cfg docsrs" cargo +nightly doc --all-features`
 #![cfg_attr(docsrs, feature(doc_cfg))]
-
 // disable deprecation warnings - TODO need to figure out how to get wasm_bindgen's new thread_local
 // attribute working
 #![allow(deprecated)]
