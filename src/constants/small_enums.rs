@@ -101,7 +101,7 @@ impl Direction {
     /// Example usage:
     ///
     /// ```
-    /// use screeps::Direction::*;
+    /// use screeps_arena::Direction::*;
     ///
     /// assert_eq!(Top.is_orthogonal(), true);
     /// assert_eq!(TopRight.is_orthogonal(), false);
@@ -117,7 +117,7 @@ impl Direction {
     /// Example usage:
     ///
     /// ```
-    /// use screeps::Direction::*;
+    /// use screeps_arena::Direction::*;
     ///
     /// assert_eq!(Top.is_diagonal(), false);
     /// assert_eq!(TopRight.is_diagonal(), true);
@@ -132,7 +132,7 @@ impl Direction {
     /// Example usage:
     ///
     /// ```
-    /// use screeps::Direction::*;
+    /// use screeps_arena::Direction::*;
     ///
     /// assert_eq!(Top.multi_rot(1), TopRight);
     /// assert_eq!(Top.multi_rot(2), Right);
@@ -152,7 +152,7 @@ impl Direction {
     /// Example usage:
     ///
     /// ```
-    /// use screeps::Direction::*;
+    /// use screeps_arena::Direction::*;
     ///
     /// assert_eq!(Top.rot_cw(), TopRight);
     /// ```
@@ -165,7 +165,7 @@ impl Direction {
     /// Example usage:
     ///
     /// ```
-    /// use screeps::Direction::*;
+    /// use screeps_arena::Direction::*;
     ///
     /// assert_eq!(Top.rot_ccw(), TopLeft);
     /// ```
