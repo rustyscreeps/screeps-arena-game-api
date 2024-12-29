@@ -95,6 +95,85 @@ pub enum Direction {
     TopLeft = 8,
 }
 
+impl Direction {
+    /// Whether the direction is orthogonal.
+    ///
+    /// Example usage:
+    ///
+    /// ```
+    /// use screeps::Direction::*;
+    ///
+    /// assert_eq!(Top.is_orthogonal(), true);
+    /// assert_eq!(TopRight.is_orthogonal(), false);
+    /// ```
+    pub fn is_orthogonal(self) -> bool {
+        use Direction::*;
+
+        matches!(self, Top | Right | Bottom | Left)
+    }
+
+    /// Whether the direction is diagonal.
+    ///
+    /// Example usage:
+    ///
+    /// ```
+    /// use screeps::Direction::*;
+    ///
+    /// assert_eq!(Top.is_diagonal(), false);
+    /// assert_eq!(TopRight.is_diagonal(), true);
+    /// ```
+    pub fn is_diagonal(self) -> bool {
+        !self.is_orthogonal()
+    }
+
+    /// Rotate the direction by a specified number of steps clockwise if
+    /// positive or counter-clockwise if negative.
+    ///
+    /// Example usage:
+    ///
+    /// ```
+    /// use screeps::Direction::*;
+    ///
+    /// assert_eq!(Top.multi_rot(1), TopRight);
+    /// assert_eq!(Top.multi_rot(2), Right);
+    /// assert_eq!(Top.multi_rot(-1), TopLeft);
+    /// assert_eq!(Top.multi_rot(-2), Left);
+    /// assert_eq!(Top.multi_rot(64), Top);
+    /// ```
+    pub fn multi_rot(self, times: i8) -> Self {
+        let raw_dir = ((self as u8) - 1).wrapping_add_signed(times) % 8 + 1;
+        // unwrap should be optimized away, as the integer we ended up with
+        // is always a valid value
+        Self::from_u8(raw_dir).unwrap()
+    }
+
+    /// Rotate the direction clockwise by one step.
+    ///
+    /// Example usage:
+    ///
+    /// ```
+    /// use screeps::Direction::*;
+    ///
+    /// assert_eq!(Top.rot_cw(), TopRight);
+    /// ```
+    pub fn rot_cw(self) -> Self {
+        self.multi_rot(1)
+    }
+
+    /// Rotate the direction counter-clockwise by one step.
+    ///
+    /// Example usage:
+    ///
+    /// ```
+    /// use screeps::Direction::*;
+    ///
+    /// assert_eq!(Top.rot_ccw(), TopLeft);
+    /// ```
+    pub fn rot_ccw(self) -> Self {
+        self.multi_rot(-1)
+    }
+}
+
 impl From<Direction> for (i8, i8) {
     /// Returns the change in (x, y) when moving in each direction.
     #[inline]
