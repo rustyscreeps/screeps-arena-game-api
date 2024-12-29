@@ -112,6 +112,15 @@ extern "C" {
     fn error(this: &CreateConstructionSiteResult) -> ReturnCode;
 }
 
+/// Create a new construction site at the specified location. Returns the
+/// ConstructionSite object instance. You can create maximum 10 active
+/// construction sites.
+///
+/// Example usage:
+/// ```
+/// use screeps_arena::{game, STRUCTURE_TOWER_PROTOTYPE};
+/// let ret = game::utils::create_construction_site(10, 20, &STRUCTURE_TOWER_PROTOTYPE);
+/// ```
 pub fn create_construction_site(
     x: u8,
     y: u8,
