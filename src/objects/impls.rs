@@ -33,14 +33,26 @@ pub use self::{
     structure_wall::{StructureWall, STRUCTURE_WALL_PROTOTYPE},
 };
 
-#[cfg(feature = "enable-body-part")]
-pub use self::arena::{BodyPart, BODY_PART_PROTOTYPE};
+#[cfg(all(feature = "enable-body-part", feature = "arena-basic"))]
+pub use self::arena::basic::{BodyPart, BODY_PART_PROTOTYPE};
 
-#[cfg(feature = "enable-flag")]
-pub use self::arena::{Flag, FLAG_PROTOTYPE};
+#[cfg(all(feature = "enable-flag", feature = "arena-basic"))]
+pub use self::arena::basic::{Flag, FLAG_PROTOTYPE};
 
-#[cfg(feature = "enable-area-effect")]
-pub use self::arena::{AreaEffect, AREA_EFFECT_PROTOTYPE};
+#[cfg(all(feature = "enable-area-effect", feature = "arena-basic"))]
+pub use self::arena::basic::{AreaEffect, AREA_EFFECT_PROTOTYPE};
 
-#[cfg(feature = "enable-score")]
-pub use self::arena::{ScoreCollector, SCORE_COLLECTOR_PROTOTYPE};
+#[cfg(all(feature = "enable-score", feature = "arena-basic"))]
+pub use self::arena::basic::{ScoreCollector, SCORE_COLLECTOR_PROTOTYPE};
+
+#[cfg(all(feature = "enable-body-part", feature = "arena-advanced"))]
+pub use self::arena::advanced::{BodyPart, BODY_PART_PROTOTYPE};
+
+#[cfg(all(feature = "enable-flag", feature = "arena-advanced"))]
+pub use self::arena::advanced::{Flag, FLAG_PROTOTYPE};
+
+#[cfg(all(feature = "enable-area-effect", feature = "arena-advanced"))]
+pub use self::arena::advanced::{AreaEffect, AREA_EFFECT_PROTOTYPE};
+
+#[cfg(all(feature = "enable-score", feature = "arena-advanced"))]
+pub use self::arena::advanced::{ScoreCollector, SCORE_COLLECTOR_PROTOTYPE};

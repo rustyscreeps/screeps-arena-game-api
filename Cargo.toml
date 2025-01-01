@@ -51,6 +51,17 @@ enable-flag = []
 enable-area-effect = []
 enable-score = []
 
+arena-basic = []
+arena-advanced = []
+
 arena-capture-the-flag = ["enable-body-part", "enable-flag"]
 arena-spawn-and-swamp = []
 arena-collect-and-control = ["enable-area-effect", "enable-score"]
+
+
+arena-capture-the-flag-basic = ["arena-capture-the-flag", "arena-basic"]
+arena-capture-the-flag-advanced = ["arena-capture-the-flag", "arena-advanced"]
+arena-spawn-and-swamp-basic = ["arena-spawn-and-swamp", "arena-basic"]
+arena-spawn-and-swamp-advanced = ["arena-spawn-and-swamp", "arena-advanced"]
+arena-collect-and-control-basic = ["arena-collect-and-control", "arena-basic"]
+arena-collect-and-control-advanced = ["arena-collect-and-control", "arena-advanced"]
