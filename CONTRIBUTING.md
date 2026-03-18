@@ -1,6 +1,6 @@
 # Contributing to `cargo-screeps` and `screeps-game-api`:
 
-1. Ask questions. We're all in the `#rust-wasm` channel on the [screeps slack].
+1. Ask questions. We're all in the `#rust` channel on the [screeps discord].
 2. Make PRs early, often. We'll review code thoroughly and help where possible.
 3. Issues are your guide for what needs to be done. If you think something needs doing and it isn't
    already an issue, make it one!
@@ -111,7 +111,7 @@ outside of the current module's hierarchy. If in `objects::impl::construction_si
 `objects::impl::room::Step` should be done with `objects::impl::room::Step` or `super::room::Step`,
 but if in `constants`, then it can just be done with `objects::Step`.
 
-[screeps slack]: https://chat.screeps.com/
+[screeps discord]: https://chat.screeps.com/
 [fmt-rfcs Rust Style Guide]: https://github.com/rust-lang-nursery/fmt-rfcs/blob/master/guide/guide.md
 [Rust API Guidelines]: https://rust-lang-nursery.github.io/api-guidelines/
 [RFC 2128]: https://github.com/rust-lang/rfcs/blob/master/text/2128-use-nested-groups.md
