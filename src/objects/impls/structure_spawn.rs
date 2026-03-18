@@ -3,6 +3,7 @@ use crate::{
     game::pathfinder::Position,
     objects::{Creep, GameObject, OwnedStructure, Store, Structure},
     prelude::*,
+    Direction,
 };
 use js_sys::{Array, Object};
 use wasm_bindgen::prelude::*;
@@ -37,6 +38,50 @@ extern "C" {
     /// [Screeps documentation](https://docs.screeps.com/api/#StructureSpawn.spawnCreep)
     #[wasm_bindgen(method, js_name = spawnCreep)]
     fn spawn_creep_internal(this: &StructureSpawn, body: &Array) -> SpawnCreepResult;
+
+    /// If the spawn is in process of spawning a new creep, this object will
+    /// contain a Spawning object, or null otherwise.
+    ///
+    /// [Screeps documentation](https://arena.screeps.com/docs#StructureSpawn.spawning)
+    #[wasm_bindgen(method, getter)]
+    pub fn spawning(this: &StructureSpawn) -> Option<Spawning>;
+
+    /// Details of the creep being spawned currently that can be addressed by
+    /// the StructureSpawn.spawning property.
+    ///
+    /// [Screeps documentation](https://arena.screeps.com/docs#Spawning)
+    #[wasm_bindgen]
+    pub type Spawning;
+
+    /// The creep that is being spawned.
+    ///
+    /// [Screeps documentation](https://arena.screeps.com/docs#Spawning.creep)
+    #[wasm_bindgen(method, getter)]
+    pub fn creep(this: &Spawning) -> Creep;
+
+    /// Time needed in total to complete the spawning.
+    ///
+    /// [Screeps documentation](https://arena.screeps.com/docs#Spawning.needTime)
+    #[wasm_bindgen(method, getter, js_name = needTime)]
+    pub fn need_time(this: &Spawning) -> u32;
+
+    /// Remaining time to go.
+    ///
+    /// [Screeps documentation](https://arena.screeps.com/docs#Spawning.remainingTime)
+    #[wasm_bindgen(method, getter, js_name = remainingTime)]
+    pub fn remaining_time(this: &Spawning) -> u32;
+
+    /// Cancel spawning immediately. Energy spent on spawning is not returned.
+    ///
+    /// [Screeps documentation](https://arena.screeps.com/docs#Spawning.cancel)
+    #[wasm_bindgen(method)]
+    pub fn cancel(this: &Spawning) -> i8;
+
+    /// Set desired directions where creeps should move when spawned.
+    ///
+    /// [Screeps documentation](https://arena.screeps.com/docs#StructureSpawn.setDirections)
+    #[wasm_bindgen(method, js_name = setDirections)]
+    fn set_directions_internal(this: &StructureSpawn, body: &Array) -> ReturnCode;
 }
 
 impl StructureSpawn {
@@ -48,6 +93,11 @@ impl StructureSpawn {
             Some(c) => Ok(c),
             None => Err(r.error()),
         }
+    }
+
+    pub fn set_directions(&self, directions: &[Direction]) -> ReturnCode {
+        let directions = directions.iter().cloned().map(JsValue::from).collect();
+        Self::set_directions_internal(self, &directions)
     }
 }
 #[wasm_bindgen]

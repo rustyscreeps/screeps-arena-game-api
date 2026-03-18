@@ -50,6 +50,11 @@ typesafe_prototype_constants! {
     pub struct BODY_PART = (BODY_PART_PROTOTYPE, BodyPart);
 }
 
+#[cfg(feature = "enable-bonus-flag")]
+typesafe_prototype_constants! {
+    pub struct BONUS_FLAG = (BONUS_FLAG_PROTOTYPE, BonusFlag);
+}
+
 #[cfg(feature = "enable-flag")]
 typesafe_prototype_constants! {
     pub struct FLAG = (FLAG_PROTOTYPE, Flag);
