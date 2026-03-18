@@ -1,6 +1,7 @@
 mod arena;
 mod construction_site;
 mod creep;
+mod flag;
 mod game_object;
 mod owned_structure;
 mod resource;
@@ -18,6 +19,7 @@ mod structure_wall;
 pub use self::{
     construction_site::{ConstructionSite, CONSTRUCTION_SITE_PROTOTYPE},
     creep::{Creep, CREEP_PROTOTYPE},
+    flag::{Flag, FLAG_PROTOTYPE},
     game_object::{GameObject, GAME_OBJECT_PROTOTYPE},
     owned_structure::{OwnedStructure, OWNED_STRUCTURE_PROTOTYPE},
     resource::{Resource, RESOURCE_PROTOTYPE},
@@ -41,9 +43,6 @@ pub use self::arena::{BodyPart, BODY_PART_PROTOTYPE};
 
 #[cfg(feature = "enable-bonus-flag")]
 pub use self::arena::{BonusFlag, BONUS_FLAG_PROTOTYPE};
-
-#[cfg(feature = "enable-flag")]
-pub use self::arena::{Flag, FLAG_PROTOTYPE};
 
 #[cfg(feature = "enable-score")]
 pub use self::arena::{ScoreCollector, SCORE_COLLECTOR_PROTOTYPE};

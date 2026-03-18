@@ -182,8 +182,6 @@ pub enum TypedGameObject {
     BonusFlag,
     ConstructionSite,
     Creep,
-    #[cfg(feature = "enable-flag")]
-    #[cfg_attr(docsrs, doc(cfg(feature = "enable-flag")))]
     Flag,
     Resource,
     Source,

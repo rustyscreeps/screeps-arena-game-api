@@ -32,6 +32,7 @@ macro_rules! typesafe_prototype_constants {
 typesafe_prototype_constants! {
     pub struct CONSTRUCTION_SITE = (CONSTRUCTION_SITE_PROTOTYPE, ConstructionSite);
     pub struct CREEP = (CREEP_PROTOTYPE, Creep);
+    pub struct FLAG = (FLAG_PROTOTYPE, Flag);
     pub struct RESOURCE = (RESOURCE_PROTOTYPE, Resource);
     pub struct SOURCE = (SOURCE_PROTOTYPE, Source);
     pub struct STRUCTURE = (STRUCTURE_PROTOTYPE, Structure);
@@ -53,11 +54,6 @@ typesafe_prototype_constants! {
 #[cfg(feature = "enable-bonus-flag")]
 typesafe_prototype_constants! {
     pub struct BONUS_FLAG = (BONUS_FLAG_PROTOTYPE, BonusFlag);
-}
-
-#[cfg(feature = "enable-flag")]
-typesafe_prototype_constants! {
-    pub struct FLAG = (FLAG_PROTOTYPE, Flag);
 }
 
 #[cfg(feature = "enable-area-effect")]

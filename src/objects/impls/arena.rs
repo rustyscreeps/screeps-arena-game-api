@@ -12,13 +12,6 @@ mod bonus_flag;
 #[cfg(feature = "enable-bonus-flag")]
 pub use self::bonus_flag::{BonusFlag, BONUS_FLAG_PROTOTYPE};
 
-#[cfg(feature = "enable-flag")]
-#[cfg_attr(docsrs, doc(cfg(feature = "enable-flag")))]
-mod flag;
-
-#[cfg(feature = "enable-flag")]
-pub use self::flag::{Flag, FLAG_PROTOTYPE};
-
 #[cfg(feature = "enable-area-effect")]
 #[cfg_attr(docsrs, doc(cfg(feature = "enable-area-effect")))]
 mod area_effect;
