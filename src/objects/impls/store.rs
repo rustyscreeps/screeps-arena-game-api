@@ -5,7 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
     /// An object that represents the cargo within an entity in the game world.
-    #[wasm_bindgen]
+    #[wasm_bindgen(extends = Object)]
     pub type Store;
 
     /// You can get specific resources from the store by addressing them as
@@ -32,7 +32,7 @@ extern "C" {
 
 impl Store {
     pub fn store_types(&self) -> Vec<ResourceType> {
-        Object::keys(self.unchecked_ref())
+        Object::keys(self)
             .iter()
             .filter_map(|v| ResourceType::from_js_value(&v))
             .collect()

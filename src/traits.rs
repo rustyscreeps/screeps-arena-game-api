@@ -1,9 +1,10 @@
 use enum_dispatch::enum_dispatch;
 use js_sys::{Array, JsString, Object};
+use wasm_bindgen::JsCast;
 
 use crate::{
     enums::*,
-    game::pathfinder::{FindPathOptions, Position, SearchResults},
+    game::pathfinder::{FindPathOptions, Position},
     objects::*,
 };
 
@@ -167,17 +168,23 @@ pub trait GameObjectProperties {
     /// If defined, then this object will disappear after this number of ticks.
     fn ticks_to_decay(&self) -> Option<u32>;
 
-    fn find_path_to(&self, pos: &Object, options: Option<&FindPathOptions>) -> SearchResults;
+    fn find_path_to(&self, pos: &Object, options: Option<&FindPathOptions>) -> Array;
 
-    fn find_in_range(&self, positions: &Array, range: u8) -> Array;
+    fn find_in_range<T>(&self, positions: &[T], range: u8) -> Vec<T>
+    where
+        T: HasPosition + JsCast;
 
-    fn find_closest_by_range(&self, positions: &Array) -> Option<Object>;
+    fn find_closest_by_range<T>(&self, positions: &[T]) -> Option<T>
+    where
+        T: HasPosition + JsCast;
 
-    fn find_closest_by_path(
+    fn find_closest_by_path<T>(
         &self,
-        positions: &Array,
+        positions: &[T],
         options: Option<&FindPathOptions>,
-    ) -> Option<Object>;
+    ) -> Option<T>
+    where
+        T: HasPosition + JsCast;
 
     fn get_range_to(&self, pos: &Object) -> u8;
 }
