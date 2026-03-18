@@ -117,7 +117,7 @@ extern "C" {
 /// construction sites.
 ///
 /// Example usage:
-/// ```
+/// ```no_run
 /// use screeps_arena::{game, STRUCTURE_TOWER_PROTOTYPE};
 /// let ret = game::utils::create_construction_site(10, 20, &STRUCTURE_TOWER_PROTOTYPE);
 /// ```
