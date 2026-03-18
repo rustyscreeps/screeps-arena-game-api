@@ -3,7 +3,7 @@ use js_sys::{Array, JsString, Object};
 
 use crate::{
     enums::*,
-    game::pathfinder::{FindPathOptions, Position, SearchResults},
+    game::pathfinder::{FindPathOptions, Position},
     objects::*,
 };
 
@@ -167,7 +167,7 @@ pub trait GameObjectProperties {
     /// If defined, then this object will disappear after this number of ticks.
     fn ticks_to_decay(&self) -> Option<u32>;
 
-    fn find_path_to(&self, pos: &Object, options: Option<&FindPathOptions>) -> SearchResults;
+    fn find_path_to(&self, pos: &Object, options: Option<&FindPathOptions>) -> Array;
 
     fn find_in_range(&self, positions: &Array, range: u8) -> Array;
 
