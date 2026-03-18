@@ -93,7 +93,8 @@ impl GameObject {
             .collect()
     }
 
-    /// Find a position with the shortest linear distance from the given position.
+    /// Find a position with the shortest linear distance from the given
+    /// position.
     pub fn find_closest_by_range<T>(&self, targets: &[T]) -> Option<T>
     where
         T: HasPosition + JsCast,
