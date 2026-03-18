@@ -1,5 +1,5 @@
 use crate::{
-    game::pathfinder::{FindPathOptions, Position, SearchResults},
+    game::pathfinder::{FindPathOptions, Position},
     prelude::*,
 };
 use js_sys::{Array, JsString, Object};
@@ -40,7 +40,7 @@ extern "C" {
         this: &GameObject,
         pos: &Object,
         options: Option<&FindPathOptions>,
-    ) -> SearchResults;
+    ) -> Array;
 
     #[wasm_bindgen(method, js_name = findInRange)]
     pub fn find_in_range(this: &GameObject, positions: &Array, range: u8) -> Array;
@@ -114,7 +114,7 @@ where
         GameObject::ticks_to_decay(self.as_ref())
     }
 
-    fn find_path_to(&self, pos: &Object, options: Option<&FindPathOptions>) -> SearchResults {
+    fn find_path_to(&self, pos: &Object, options: Option<&FindPathOptions>) -> Array {
         GameObject::find_path_to(self.as_ref(), pos, options)
     }
 
