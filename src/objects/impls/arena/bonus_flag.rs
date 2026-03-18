@@ -7,7 +7,8 @@ extern "C" {
     #[wasm_bindgen(js_name = BonusFlag)]
     pub static BONUS_FLAG_PROTOTYPE: Object;
 
-    /// An object that applies an effect of the specified type to all creeps belonging to the player who captured it.
+    /// An object that applies an effect of the specified type to all creeps
+    /// belonging to the player who captured it.
     #[wasm_bindgen(extends = GameObject)]
     #[derive(Clone)]
     pub type BonusFlag;
