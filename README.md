@@ -31,7 +31,7 @@ enough ideas, we can start an mdbook for this repository.
 
 If you need help or want to share feedback, feel free to open an
 [issue](https://github.com/rustyscreeps/screeps-game-api/issues)
-or come say "_Hi!_" on [the official Screeps Slack](https://chat.screeps.com/) in the `#rust-wasm`
+or come say "_Hi!_" on [the official Screeps Discord](https://chat.screeps.com/) in the `#rust`
 channel!
 
 ---
