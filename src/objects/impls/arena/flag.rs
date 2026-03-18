@@ -2,7 +2,7 @@ use crate::{objects::GameObject, prelude::*};
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen(module = "arena/season_beta/capture_the_flag/basic/prototypes")]
+#[wasm_bindgen(module = "game/prototypes/flag")]
 extern "C" {
     #[wasm_bindgen(js_name = Flag)]
     pub static FLAG_PROTOTYPE: Object;
