@@ -5,6 +5,13 @@ mod body_part;
 #[cfg(feature = "enable-body-part")]
 pub use self::body_part::{BodyPart, BODY_PART_PROTOTYPE};
 
+#[cfg(feature = "enable-bonus-flag")]
+#[cfg_attr(docsrs, doc(cfg(feature = "enable-bonus-flag")))]
+mod bonus_flag;
+
+#[cfg(feature = "enable-bonus-flag")]
+pub use self::bonus_flag::{BonusFlag, BONUS_FLAG_PROTOTYPE};
+
 #[cfg(feature = "enable-flag")]
 #[cfg_attr(docsrs, doc(cfg(feature = "enable-flag")))]
 mod flag;

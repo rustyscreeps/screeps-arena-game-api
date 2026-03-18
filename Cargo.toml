@@ -50,7 +50,12 @@ enable-body-part = []
 enable-flag = []
 enable-area-effect = []
 enable-score = []
+enable-bonus-flag = []
 
 arena-capture-the-flag = ["enable-body-part", "enable-flag"]
 arena-spawn-and-swamp = []
 arena-collect-and-control = ["enable-area-effect", "enable-score"]
+
+season2-capture_the_flag = ["enable-body-part", "enable-flag"]
+season2-power_split = ["enable-bonus-flag"]
+season2-construct_and_control = ["enable-area-effect"]

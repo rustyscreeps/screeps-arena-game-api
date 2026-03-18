@@ -177,6 +177,9 @@ pub enum TypedGameObject {
     #[cfg(feature = "enable-body-part")]
     #[cfg_attr(docsrs, doc(cfg(feature = "enable-body-part")))]
     BodyPart,
+    #[cfg(feature = "enable-bonus-flag")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "enable-bonus-flag")))]
+    BonusFlag,
     ConstructionSite,
     Creep,
     #[cfg(feature = "enable-flag")]

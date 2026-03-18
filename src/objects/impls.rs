@@ -33,14 +33,17 @@ pub use self::{
     structure_wall::{StructureWall, STRUCTURE_WALL_PROTOTYPE},
 };
 
+#[cfg(feature = "enable-area-effect")]
+pub use self::arena::{AreaEffect, AREA_EFFECT_PROTOTYPE};
+
 #[cfg(feature = "enable-body-part")]
 pub use self::arena::{BodyPart, BODY_PART_PROTOTYPE};
 
+#[cfg(feature = "enable-bonus-flag")]
+pub use self::arena::{BonusFlag, BONUS_FLAG_PROTOTYPE};
+
 #[cfg(feature = "enable-flag")]
 pub use self::arena::{Flag, FLAG_PROTOTYPE};
-
-#[cfg(feature = "enable-area-effect")]
-pub use self::arena::{AreaEffect, AREA_EFFECT_PROTOTYPE};
 
 #[cfg(feature = "enable-score")]
 pub use self::arena::{ScoreCollector, SCORE_COLLECTOR_PROTOTYPE};
