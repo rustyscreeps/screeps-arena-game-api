@@ -43,13 +43,13 @@ extern "C" {
     ) -> Array;
 
     #[wasm_bindgen(method, js_name = findInRange)]
-    pub fn find_in_range(this: &GameObject, positions: &Array, range: u8) -> Array;
+    fn find_in_range_internal(this: &GameObject, positions: &Array, range: u8) -> Array;
 
     #[wasm_bindgen(method, js_name = findClosestByRange)]
-    pub fn find_closest_by_range(this: &GameObject, positions: &Array) -> Option<Object>;
+    fn find_closest_by_range_internal(this: &GameObject, positions: &Array) -> Option<Object>;
 
     #[wasm_bindgen(method, js_name = findClosestByPath)]
-    pub fn find_closest_by_path(
+    fn find_closest_by_path_internal(
         this: &GameObject,
         positions: &Array,
         options: Option<&FindPathOptions>,
@@ -78,6 +78,44 @@ impl GameObject {
                 }
             }
         }
+    }
+
+    /// Find all objects in the specified linear range.
+    pub fn find_in_range<T>(&self, targets: &[T], range: u8) -> Vec<T>
+    where
+        T: HasPosition + JsCast,
+    {
+        let array = targets.iter().map(|t| t.as_ref()).collect();
+        let result = self.find_in_range_internal(&array, range);
+        result
+            .into_iter()
+            .filter_map(|js_val| js_val.dyn_into().ok())
+            .collect()
+    }
+
+    /// Find a position with the shortest linear distance from the given
+    /// position.
+    pub fn find_closest_by_range<T>(&self, targets: &[T]) -> Option<T>
+    where
+        T: HasPosition + JsCast,
+    {
+        let array = targets.iter().map(|t| t.as_ref()).collect();
+        let result = self.find_closest_by_range_internal(&array)?;
+        result.dyn_into().ok()
+    }
+
+    /// Find a position with the shortest path from the given position.
+    pub fn find_closest_by_path<T>(
+        &self,
+        targets: &[T],
+        options: Option<&FindPathOptions>,
+    ) -> Option<T>
+    where
+        T: HasPosition + JsCast,
+    {
+        let array = targets.iter().map(|t| t.as_ref()).collect();
+        let result = self.find_closest_by_path_internal(&array, options)?;
+        result.dyn_into().ok()
     }
 }
 
@@ -118,19 +156,28 @@ where
         GameObject::find_path_to(self.as_ref(), pos, options)
     }
 
-    fn find_in_range(&self, positions: &Array, range: u8) -> Array {
+    fn find_in_range<U>(&self, positions: &[U], range: u8) -> Vec<U>
+    where
+        U: HasPosition + JsCast,
+    {
         GameObject::find_in_range(self.as_ref(), positions, range)
     }
 
-    fn find_closest_by_range(&self, positions: &Array) -> Option<Object> {
+    fn find_closest_by_range<U>(&self, positions: &[U]) -> Option<U>
+    where
+        U: HasPosition + JsCast,
+    {
         GameObject::find_closest_by_range(self.as_ref(), positions)
     }
 
-    fn find_closest_by_path(
+    fn find_closest_by_path<U>(
         &self,
-        positions: &Array,
+        positions: &[U],
         options: Option<&FindPathOptions>,
-    ) -> Option<Object> {
+    ) -> Option<U>
+    where
+        U: HasPosition + JsCast,
+    {
         GameObject::find_closest_by_path(self.as_ref(), positions, options)
     }
 
